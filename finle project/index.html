@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ghurir Security Sandbox</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- شريط التنقل العلوي -->
+    <nav class="navbar">
+        <!-- الشعار الآن يعمل كزر للعودة للصفحة الرئيسية -->
+        <a href="index.html" class="logo">🛡️ Ghurir Sandbox</a>
+    </nav>
+
+    <!-- القسم الترحيبي -->
+    <header class="hero">
+        <span class="badge">Interactive Web Security Labs</span>
+        <h1>Explore, Exploit, and Secure</h1>
+        <p>
+            Welcome to our interactive cybersecurity sandbox. Pick a vulnerability below to inspect the flawed code, trigger a live browser simulation, and test the patch in real time.
+        </p>
+    </header>
+
+    <!-- قسم البطاقات الثلاث -->
+    <main class="container">
+        <div class="cards-grid">
+
+            <!-- البطاقة الأولى: Prototype Pollution -->
+            <a href="lab1.html" class="card" data-lab="Lab 01">
+                <div class="card-header">
+                    <span class="abbr-badge">CSPP</span>
+                    <span class="difficulty-tag hard">Challenge</span>
+                </div>
+                <h2>Client-Side Prototype Pollution</h2>
+                <p>
+                    Inject properties into JavaScript's base object prototype, altering application logic and hijacking execution flows directly in the browser.
+                </p>
+                <div class="card-footer">
+                    <span>Launch Sandbox</span>
+                    <span class="arrow">→</span>
+                </div>
+            </a>
+
+            <!-- البطاقة الثانية: Open Redirect -->
+            <a href="lab2.html" class="card" data-lab="Lab 02">
+                <div class="card-header">
+                    <span class="abbr-badge">OR</span>
+                    <span class="difficulty-tag medium">Medium</span>
+                </div>
+                <h2>DOM-Based Open Redirect</h2>
+                <p>
+                    Manipulate unvalidated URL parameters processed by client-side scripts to silently redirect users toward untrusted external domains.
+                </p>
+                <div class="card-footer">
+                    <span>Launch Sandbox</span>
+                    <span class="arrow">→</span>
+                </div>
+            </a>
+
+            <!-- البطاقة الثالثة: ReDoS -->
+            <a href="lab3.html" class="card" data-lab="Lab 03">
+                <div class="card-header">
+                    <span class="abbr-badge">ReDoS</span>
+                    <span class="difficulty-tag medium">Medium</span>
+                </div>
+                <h2>Regular Expression DoS</h2>
+                <p>
+                    Exploit inefficient regular expressions with crafted input strings, forcing catastrophic backtracking that freezes the user's browser tab.
+                </p>
+                <div class="card-footer">
+                    <span>Launch Sandbox</span>
+                    <span class="arrow">→</span>
+                </div>
+            </a>
+
+        </div>
+    </main>
+
+    <!-- التذييل (تم الإبقاء عليه كما هو) -->
+    <footer class="footer">
+        <p>Ghurir Final Project — 42 Irbid Cybersecurity Bootcamp | Safe Simulation Environment</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
