@@ -25,7 +25,7 @@ body {
     min-height: 100vh;
 }
 
-/* شريط التنقل */
+/* Top Navigation Bar */
 .navbar {
     display: flex;
     padding: 1.2rem 5%;
@@ -36,21 +36,21 @@ body {
     z-index: 100;
 }
 
-/* الشعار كزر للرئيسية */
+/* Logo acting as Home button */
 .logo {
     font-size: 1.3rem;
     font-weight: 700;
     color: var(--accent-ice);
     letter-spacing: 0.5px;
-    text-decoration: none; /* إزالة الخط السفلي للرابط */
+    text-decoration: none; 
     transition: color 0.3s ease;
 }
 
 .logo:hover {
-    color: var(--text-light); /* إضاءة الشعار عند تمرير الماوس */
+    color: var(--text-light); 
 }
 
-/* القسم الترحيبي */
+/* Hero Section */
 .hero {
     text-align: center;
     padding: 4rem 1.5rem 2.5rem;
@@ -80,7 +80,7 @@ body {
     font-size: 1.1rem;
 }
 
-/* شبكة البطاقات */
+/* Cards Grid */
 .container {
     width: 90%;
     max-width: 1150px;
@@ -94,7 +94,7 @@ body {
     gap: 2rem;
 }
 
-/* تصميم البطاقة التفاعلية */
+/* Interactive Card Design */
 .card {
     background-color: var(--card-bg);
     border: 1px solid rgba(185, 228, 232, 0.2);
@@ -184,7 +184,7 @@ body {
     transform: translateX(6px);
 }
 
-/* التذييل */
+/* Footer */
 .footer {
     text-align: center;
     padding: 1.5rem;
@@ -193,15 +193,14 @@ body {
     font-size: 0.85rem;
 }
 
-/* التجاوب مع الشاشات الصغيرة */
+/* Mobile Responsiveness */
 @media (max-width: 768px) {
     .hero h1 {
         font-size: 2rem;
     }
 }
 
-
-/* --- إعدادات صفحات المختبرات (Lab Pages) --- */
+/* ================= Lab Pages Styles ================= */
 
 .lab-container {
     width: 90%;
@@ -227,10 +226,10 @@ body {
     gap: 1rem;
 }
 
-/* قسم النظرية (Theory) */
+/* Theory Section */
 .article-content {
-    max-width: 850px; /* تحديد عرض النص ليكون مريحاً للعين كالمقالات */
-    margin: 0 auto 3.5rem auto; /* توسيط المقال في منتصف الشاشة */
+    max-width: 850px; 
+    margin: 0 auto 3.5rem auto; 
     padding: 0 1rem;
 }
 
@@ -248,11 +247,11 @@ body {
 .article-section p {
     color: var(--text-light);
     font-size: 1.1rem;
-    line-height: 1.8; /* زيادة التباعد بين الأسطر لسهولة القراءة */
+    line-height: 1.8; 
     opacity: 0.9;
 }
 
-/* قسم التفاعل والصندوق الرملي (Sandbox) */
+/* Interactive Sandbox Area */
 .sandbox-area {
     background-color: rgba(7, 27, 43, 0.5);
     border: 1px solid var(--primary-teal);
@@ -261,7 +260,7 @@ body {
     margin-bottom: 3rem;
 }
 
-/* أزرار التبديل (Toggle Switch) */
+/* Mode Toggle Switch */
 .toggle-container {
     display: flex;
     justify-content: center;
@@ -293,7 +292,7 @@ body {
     color: var(--safe-green);
 }
 
-/* تقسيم الكود والتجربة */
+/* Code & Action Split Layout */
 .code-and-action {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -312,7 +311,7 @@ body {
     margin-bottom: 1rem;
 }
 
-/* تصميم الكود */
+/* Code Block Styling */
 pre {
     background-color: #030d14;
     padding: 1rem;
@@ -324,7 +323,7 @@ pre {
     margin-bottom: 1rem;
 }
 
-/* تظليل الأسطر */
+/* Line Highlighting */
 .highlight-line {
     display: block;
     padding: 0.2rem 0;
@@ -348,7 +347,7 @@ pre {
     color: var(--text-muted);
 }
 
-/* أزرار الحمولات (Payloads) */
+/* Payload Buttons */
 .payload-buttons {
     display: flex;
     flex-direction: column;
@@ -372,7 +371,7 @@ pre {
     background-color: #1a96a8;
 }
 
-/* مربع النتيجة (Output) */
+/* Output Box */
 .output-box {
     background-color: #030d14;
     border: 1px dashed var(--text-muted);
@@ -386,7 +385,7 @@ pre {
 .attack-success { color: var(--danger-red); }
 .attack-blocked { color: var(--safe-green); }
 
-/* قسم المصادر */
+/* Sources Section */
 .sources-section {
     background-color: var(--card-bg);
     padding: 1.5rem;
@@ -414,7 +413,8 @@ pre {
 }
 
 /* ================= Lab 3 & General Custom Layout ================= */
-/* الناف بار والشعار */
+
+/* Navbar & Logo */
 .navbar {
     display: flex; align-items: center; padding: 1rem 2rem;
     background-color: #04101a; border-bottom: 1px solid rgba(185, 228, 232, 0.1);
@@ -425,7 +425,7 @@ pre {
 }
 .shield-icon { font-size: 1.4rem; }
 
-/* الهيدر والبادجات */
+/* Header & Badges */
 .header-content { text-align: center; margin: 2rem 0; }
 .header-content h1 { color: #EEEEEE; margin-bottom: 1rem; }
 .badges { display: flex; justify-content: center; gap: 1rem; }
@@ -433,13 +433,13 @@ pre {
 .badge-primary { background-color: #167D8D; color: #EEEEEE; }
 .badge-secondary { background-color: #071B2B; color: #B9E4E8; border: 1px solid #167D8D; }
 
-/* قسم الشرح النظري (What is it) */
+/* Theory Info Section */
 .info-section { max-width: 800px; margin: 0 auto 3rem auto; }
 .info-block { margin-bottom: 2rem; }
 .info-block h2 { color: #EEEEEE; font-size: 1.2rem; margin-bottom: 0.5rem; }
 .info-block p { color: #B9E4E8; line-height: 1.6; }
 
-/* أزرار الفيكس (Vulnerable / Fixed Mode) */
+/* Mode Toggle Buttons (Vulnerable / Fixed Mode) */
 .mode-toggle-container {
     display: flex; justify-content: center; gap: 1rem; margin-bottom: 2rem;
 }
@@ -454,7 +454,7 @@ pre {
 .red-dot { background-color: #ff4d4d; }
 .green-dot { background-color: #2e8b57; }
 
-/* التخطيط والعمودين */
+/* Two-Column Lab Grid */
 .lab-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: start; }
 .panel {
     background-color: rgba(7, 27, 43, 0.6); border: 1px solid rgba(185, 228, 232, 0.2);
@@ -462,7 +462,7 @@ pre {
 }
 .panel h3 { color: #EEEEEE; margin-top: 0; margin-bottom: 1rem;}
 
-/* أزرار البايلود */
+/* Payload Buttons */
 .payload-buttons { display: flex; flex-direction: column; gap: 0.8rem; margin-bottom: 1.5rem; }
 .payload-btn {
     background-color: #071B2B; color: #EEEEEE; border: 1px solid rgba(185, 228, 232, 0.3);
@@ -470,7 +470,7 @@ pre {
 }
 .payload-btn:hover { border-color: #167D8D; }
 
-/* صندوق النتيجة والكود */
+/* Simulation Result & Code Display */
 .result-box, .code-box {
     background-color: #04101a; border: 1px solid rgba(185, 228, 232, 0.2);
     border-radius: 6px; padding: 1rem; color: #B9E4E8; font-family: monospace;
@@ -478,7 +478,7 @@ pre {
 .result-box { min-height: 100px; }
 .code-box { overflow-x: auto; font-size: 0.9rem; }
 
-/* بوكس Test Page */
+/* Embedded Test Page Box */
 .inner-test-page {
     background-color: transparent; border: 1px solid rgba(185, 228, 232, 0.2);
     border-radius: 8px; padding: 1.2rem; margin-bottom: 1.5rem;
