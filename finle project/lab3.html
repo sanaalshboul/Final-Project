@@ -8,42 +8,58 @@
 </head>
 <body>
 
+    <!-- الناف بار المعدل ليطابق الصورة الثانية -->
     <header class="navbar">
-        <a href="index.html" class="logo">Ghurir <span>Sandbox</span></a>
-        <nav>
-            <a href="index.html" class="back-btn">← Back to Labs</a>
-        </nav>
+        <a href="index.html" class="logo">
+            <span class="shield-icon">🛡️</span> Ghurir Sandbox
+        </a>
     </header>
 
     <main class="lab-container">
-        <section class="lab-header">
-            <span class="badge">Lab 03</span>
+        <!-- عنوان اللاب والبادجات -->
+        <div class="header-content">
             <h1>ReDoS (Regular Expression Denial of Service)</h1>
-            <p class="lab-intro">
-                <!-- TODO: اكتب وصف مختصر للثغرة هنا -->
-                Explore how poorly designed regular expressions can cause catastrophic backtracking.
-            </p>
+            <div class="badges">
+                <span class="badge badge-primary">OWASP: Injection</span>
+                <span class="badge badge-secondary">CWE-400</span>
+            </div>
+        </div>
+
+        <!-- قسم الشرح النظري (What is it / Why it matters) -->
+        <section class="info-section">
+            <div class="info-block">
+                <h2>1. What is it?</h2>
+                <p>Explain how the bug works in very simple English. Max 3 sentences. For example: "This bug happens when the website uses a poorly designed regular expression to validate user input. Attackers can use this to cause catastrophic backtracking."</p>
+            </div>
+
+            <div class="info-block">
+                <h2>2. Why it matters?</h2>
+                <p>Explain the damage it causes. Keep it simple. For example: "Hackers can send a specific string that freezes the server, making the application unavailable for other users."</p>
+            </div>
         </section>
 
-        <!-- التخطيط ذو العمودين -->
+        <!-- التخطيط ذو العمودين الخاص بـ Lab 3 -->
         <div class="lab-grid">
-
+            
             <!-- العمود الأول (يسار): Payloads + Simulation -->
             <section class="panel left-panel">
-                <h2>Try it (Payloads)</h2>
+                <!-- أزرار التحكم بالمود (Vulnerable / Fixed) -->
+                <div class="mode-toggle-container">
+                    <button id="vulnerableModeBtn" class="mode-btn active" onclick="setMode('vulnerable')">
+                        <span class="dot red-dot"></span> Vulnerable Mode
+                    </button>
+                    <button id="fixedModeBtn" class="mode-btn" onclick="setMode('fixed')">
+                        <span class="dot green-dot"></span> Fixed Mode
+                    </button>
+                </div>
+
+                <h3>Try it (Payloads)</h3>
                 
+                <!-- 3 أزرار فقط للبايلود -->
                 <div class="payload-buttons">
-                    <!-- TODO: عدل نصوص الأزرار وقيم الإرسال (onclick) حسب تجربتك -->
                     <button class="payload-btn" onclick="applyPayload('user@example.com')">P1 (Normal)</button>
                     <button class="payload-btn" onclick="applyPayload('aaaaaaaaaaaaa!')">P2 (Medium)</button>
                     <button class="payload-btn" onclick="applyPayload('aaaaaaaaaaaaaaaaaaaaaaaaaaaa!')">P3 (Heavy)</button>
-                    <!-- الزر الإضافي اللي طلبتيه -->
-                    <button class="payload-btn custom-payload-btn" onclick="applyPayload('custom_payload_here')">P4 (Extra Payload)</button>
-                </div>
-
-                <div class="control-actions">
-                    <button id="toggleFixBtn" class="fix-btn" onclick="toggleFixMode()">Fix Vulnerability</button>
-                    <button class="reset-btn" onclick="resetLab()">Reset</button>
                 </div>
 
                 <div class="result-section">
@@ -54,10 +70,10 @@
                 </div>
             </section>
 
-            <!-- العمود الثاني (يمين): Test Page + The Code داخل نفس البوكس الكبير -->
+            <!-- العمود الثاني (يمين): Test Page + Code + Why it fails -->
             <section class="panel right-panel">
                 
-                <!-- البوكس الصغير (Test Page) الموجود فوق الكود -->
+                <!-- البوكس الصغير (Test Page) -->
                 <div class="inner-test-page">
                     <h3 class="test-page-title">Test Page:</h3>
                     <form id="emailTestForm" onsubmit="handleEmailSubmit(event)" class="test-form">
@@ -74,7 +90,7 @@
                 <!-- الكود -->
                 <div class="code-section">
                     <h3>The Code:</h3>
-                    <pre class="code-box"><code id="codeDisplay">// TODO: ضع الكود المصاب بالثغرة هنا
+                    <pre class="code-box"><code id="codeDisplay">// Vulnerable Code
 const emailRegex = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 
 function validateEmail(email) {
@@ -86,8 +102,7 @@ function validateEmail(email) {
                 <div class="explanation-section">
                     <h3 class="why-fails-title">Why it fails:</h3>
                     <p id="whyItFailsText" class="explanation-text">
-                        <!-- TODO: اشرح هنا سبب حدوث الثغرة -->
-                        The regular expression uses nested quantifiers causing Catastrophic Backtracking...
+                        The regular expression uses nested quantifiers causing Catastrophic Backtracking when a long, almost-valid string is provided.
                     </p>
                 </div>
 

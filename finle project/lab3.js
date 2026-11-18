@@ -1,59 +1,61 @@
-// حالة الموقع الحالية (هل هو مصاب أم تم إصلاحه؟)
-let isVulnerable = true;
+let isFixed = false;
 
-// جلب عناصر الـ HTML
-const vulnBtn = document.getElementById('vuln-btn');
-const fixedBtn = document.getElementById('fixed-btn');
-const targetLine = document.getElementById('target-line');
-const codeExplanation = document.getElementById('code-explanation');
-const outputBox = document.getElementById('simulation-output');
+function applyPayload(payloadValue) {
+    const emailInput = document.getElementById("emailInput");
+    emailInput.value = payloadValue;
+    runValidation(payloadValue);
+}
 
-// عند الضغط على زر التبديل إلى "Vulnerable"
-vulnBtn.addEventListener('click', () => {
-    isVulnerable = true;
-    
-    // تغيير ألوان الأزرار
-    vulnBtn.classList.add('active-vuln');
-    fixedBtn.classList.remove('active-fixed');
-    
-    // تغيير الكود والشرح للنسخة المصابة
-    targetLine.className = 'highlight-line vuln-line';
-    targetLine.innerText = '    // Vulnerable: eval(userInput);';
-    codeExplanation.innerHTML = '<strong>Why it fails:</strong> The eval() function runs the input as code without any checks.';
-    
-    // إعادة تعيين مربع النتيجة
-    outputBox.innerHTML = 'Waiting for action...';
-    outputBox.className = 'output-box';
-});
+function handleEmailSubmit(event) {
+    event.preventDefault();
+    const emailValue = document.getElementById("emailInput").value;
+    runValidation(emailValue);
+}
 
-// عند الضغط على زر التبديل إلى "Fixed"
-fixedBtn.addEventListener('click', () => {
-    isVulnerable = false;
+function runValidation(input) {
+    const resultBox = document.getElementById("simulationResult");
     
-    // تغيير ألوان الأزرار
-    fixedBtn.classList.add('active-fixed');
-    vulnBtn.classList.remove('active-vuln');
-    
-    // تغيير الكود والشرح للنسخة الآمنة
-    targetLine.className = 'highlight-line fixed-line';
-    targetLine.innerText = '    // Fixed: JSON.parse(userInput);';
-    codeExplanation.innerHTML = '<strong>The Fix:</strong> We use JSON.parse() which only reads data, it cannot execute code.';
-    
-    // إعادة تعيين مربع النتيجة
-    outputBox.innerHTML = 'Waiting for action...';
-    outputBox.className = 'output-box';
-});
+    const vulnerableRegex = /^([a-zA-Z0-9])+([a-zA-Z0-9\._-])*@([a-zA-Z0-9_-])+([a-zA-Z0-9\._-]+)+$/;
+    const safeRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-// وظيفة محاكاة الحمولات (Payload Simulation)
-// يتم استدعاؤها عندما يضغط الزائر على أحد أزرار الـ Payload
-function runPayload(payloadName) {
-    if (isVulnerable) {
-        // حالة الهجوم الناجح (الموقع مصاب)
-        outputBox.innerHTML = `⚠️ <strong>CRITICAL:</strong> Attack successful! <br>Payload "${payloadName}" executed on the page.`;
-        outputBox.className = 'output-box attack-success';
+    const activeRegex = isFixed ? safeRegex : vulnerableRegex;
+
+    const startTime = performance.now();
+    const isValid = activeRegex.test(input);
+    const endTime = performance.now();
+    const duration = (endTime - startTime).toFixed(2);
+
+    resultBox.innerHTML = `
+        Mode: ${isFixed ? "Safe" : "Vulnerable"}<br>
+        Input Length: ${input.length} chars<br>
+        Execution Time: <span style="color: ${duration > 50 ? '#ff4d4d' : '#B9E4E8'};">${duration} ms</span>
+    `;
+}
+
+function setMode(mode) {
+    const vulBtn = document.getElementById("vulnerableModeBtn");
+    const fixBtn = document.getElementById("fixedModeBtn");
+    const codeDisplay = document.getElementById("codeDisplay");
+    const explanationText = document.getElementById("whyItFailsText");
+    const explanationTitle = document.querySelector(".why-fails-title");
+
+    if (mode === 'fixed') {
+        isFixed = true;
+        fixBtn.classList.add("active");
+        vulBtn.classList.remove("active");
+        
+        codeDisplay.textContent = `// Fixed Code (Safe Regex)\nconst safeRegex = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/;\n\nfunction validateEmail(email) {\n    return safeRegex.test(email);\n}`;
+        
+        explanationTitle.textContent = "How it's fixed:";
+        explanationText.textContent = "The new regex avoids nested quantifiers and simply checks for characters separated by '@' and '.', eliminating the risk of catastrophic backtracking.";
     } else {
-        // حالة الهجوم الفاشل (الموقع محمي)
-        outputBox.innerHTML = `🛡️ <strong>BLOCKED:</strong> Attack failed. <br>The fix correctly blocked "${payloadName}".`;
-        outputBox.className = 'output-box attack-blocked';
+        isFixed = false;
+        vulBtn.classList.add("active");
+        fixBtn.classList.remove("active");
+        
+        codeDisplay.textContent = `// Vulnerable Code\nconst emailRegex = /^([a-zA-Z0-9_\\.\\-])+\\@(([a-zA-Z0-9\\-])+\\.)+([a-zA-Z0-9]{2,4})+$/;\n\nfunction validateEmail(email) {\n    return emailRegex.test(email);\n}`;
+        
+        explanationTitle.textContent = "Why it fails:";
+        explanationText.textContent = "The regular expression uses nested quantifiers causing Catastrophic Backtracking when a long, almost-valid string is provided.";
     }
 }
