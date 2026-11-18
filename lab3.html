@@ -8,7 +8,7 @@
 </head>
 <body>
 
-    <!-- الناف بار المعدل ليطابق الصورة الثانية -->
+    <!-- Top Navigation Bar -->
     <header class="navbar">
         <a href="index.html" class="logo">
             <span class="shield-icon">🛡️</span> Ghurir Sandbox
@@ -16,7 +16,7 @@
     </header>
 
     <main class="lab-container">
-        <!-- عنوان اللاب والبادجات -->
+        <!-- Lab Title & Badges -->
         <div class="header-content">
             <h1>ReDoS (Regular Expression Denial of Service)</h1>
             <div class="badges">
@@ -25,7 +25,7 @@
             </div>
         </div>
 
-        <!-- قسم الشرح النظري (What is it / Why it matters) -->
+        <!-- Theory Section (What is it / Why it matters) -->
         <section class="info-section">
             <div class="info-block">
                 <h2>1. What is it?</h2>
@@ -38,12 +38,12 @@
             </div>
         </section>
 
-        <!-- التخطيط ذو العمودين الخاص بـ Lab 3 -->
+        <!-- Two-Column Layout for Lab 3 -->
         <div class="lab-grid">
             
-            <!-- العمود الأول (يسار): Payloads + Simulation -->
+            <!-- Left Column: Payloads + Simulation -->
             <section class="panel left-panel">
-                <!-- أزرار التحكم بالمود (Vulnerable / Fixed) -->
+                <!-- Mode Toggle Buttons (Vulnerable / Fixed) -->
                 <div class="mode-toggle-container">
                     <button id="vulnerableModeBtn" class="mode-btn active" onclick="setMode('vulnerable')">
                         <span class="dot red-dot"></span> Vulnerable Mode
@@ -55,7 +55,7 @@
 
                 <h3>Try it (Payloads)</h3>
                 
-                <!-- 3 أزرار فقط للبايلود -->
+                <!-- Payload Action Buttons -->
                 <div class="payload-buttons">
                     <button class="payload-btn" onclick="applyPayload('user@example.com')">P1 (Normal)</button>
                     <button class="payload-btn" onclick="applyPayload('aaaaaaaaaaaaa!')">P2 (Medium)</button>
@@ -70,10 +70,10 @@
                 </div>
             </section>
 
-            <!-- العمود الثاني (يمين): Test Page + Code + Why it fails -->
+            <!-- Right Column: Test Page + Code + Why it fails -->
             <section class="panel right-panel">
                 
-                <!-- البوكس الصغير (Test Page) -->
+                <!-- Embedded Test Page Box -->
                 <div class="inner-test-page">
                     <h3 class="test-page-title">Test Page:</h3>
                     <form id="emailTestForm" onsubmit="handleEmailSubmit(event)" class="test-form">
@@ -87,30 +87,8 @@
 
                 <hr class="divider">
 
-                <!-- الكود -->
+                <!-- Code Snippet Display -->
                 <div class="code-section">
                     <h3>The Code:</h3>
                     <pre class="code-box"><code id="codeDisplay">// Vulnerable Code
-const emailRegex = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-
-function validateEmail(email) {
-    return emailRegex.test(email);
-}</code></pre>
-                </div>
-
-                <!-- سبب الفشل -->
-                <div class="explanation-section">
-                    <h3 class="why-fails-title">Why it fails:</h3>
-                    <p id="whyItFailsText" class="explanation-text">
-                        The regular expression uses nested quantifiers causing Catastrophic Backtracking when a long, almost-valid string is provided.
-                    </p>
-                </div>
-
-            </section>
-
-        </div>
-    </main>
-
-    <script src="lab3.js"></script>
-</body>
-</html>
+const emailRegex = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9
