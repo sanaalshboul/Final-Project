@@ -1,7 +1,7 @@
 # Final-Project
 
 Members:
-1- Sana'a Al-shbou
+1- Sana'a Al-shboul
 2- Lana Bataineh
 3- Joman AlKhashashneh
 4- Tasneem Tanashat
