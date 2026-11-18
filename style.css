@@ -1,0 +1,498 @@
+:root {
+    --bg-dark: #071B2B;
+    --card-bg: #0c263b;
+    --primary-teal: #167D8D;
+    --accent-ice: #B9E4E8;
+    --text-light: #EEEEEE;
+    --text-muted: #a9c5d3;
+    --danger-red: #FF4B4B;
+    --safe-green: #00E676;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-light);
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* شريط التنقل */
+.navbar {
+    display: flex;
+    padding: 1.2rem 5%;
+    background-color: rgba(7, 27, 43, 0.95);
+    border-bottom: 1px solid rgba(185, 228, 232, 0.15);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+/* الشعار كزر للرئيسية */
+.logo {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--accent-ice);
+    letter-spacing: 0.5px;
+    text-decoration: none; /* إزالة الخط السفلي للرابط */
+    transition: color 0.3s ease;
+}
+
+.logo:hover {
+    color: var(--text-light); /* إضاءة الشعار عند تمرير الماوس */
+}
+
+/* القسم الترحيبي */
+.hero {
+    text-align: center;
+    padding: 4rem 1.5rem 2.5rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.badge {
+    display: inline-block;
+    background-color: rgba(22, 125, 141, 0.25);
+    color: var(--accent-ice);
+    border: 1px solid var(--primary-teal);
+    padding: 0.3rem 1rem;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+}
+
+.hero h1 {
+    font-size: 2.6rem;
+    margin-bottom: 1rem;
+    color: var(--text-light);
+}
+
+.hero p {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+}
+
+/* شبكة البطاقات */
+.container {
+    width: 90%;
+    max-width: 1150px;
+    margin: 1rem auto 4rem;
+    flex: 1;
+}
+
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+/* تصميم البطاقة التفاعلية */
+.card {
+    background-color: var(--card-bg);
+    border: 1px solid rgba(185, 228, 232, 0.2);
+    border-radius: 12px;
+    padding: 2rem;
+    text-decoration: none;
+    color: var(--text-light);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+.card:hover {
+    transform: translateY(-6px);
+    border-color: var(--accent-ice);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.2rem;
+}
+
+.abbr-badge {
+    background-color: var(--primary-teal);
+    color: var(--text-light);
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 0.4rem 0.9rem;
+    border-radius: 8px;
+    letter-spacing: 1px;
+}
+
+.difficulty-tag {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.7rem;
+    border-radius: 4px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.difficulty-tag.medium {
+    background-color: rgba(185, 228, 232, 0.15);
+    color: var(--accent-ice);
+}
+
+.difficulty-tag.hard {
+    background-color: rgba(255, 75, 75, 0.15);
+    color: var(--danger-red);
+    border: 1px solid rgba(255, 75, 75, 0.3);
+}
+
+.card h2 {
+    font-size: 1.4rem;
+    margin-bottom: 0.8rem;
+    color: var(--accent-ice);
+}
+
+.card p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    margin-bottom: 1.8rem;
+    flex-grow: 1;
+}
+
+.card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(185, 228, 232, 0.1);
+    font-weight: 600;
+    color: var(--accent-ice);
+    font-size: 0.95rem;
+}
+
+.card .arrow {
+    transition: transform 0.3s ease;
+    font-size: 1.2rem;
+}
+
+.card:hover .arrow {
+    transform: translateX(6px);
+}
+
+/* التذييل */
+.footer {
+    text-align: center;
+    padding: 1.5rem;
+    border-top: 1px solid rgba(185, 228, 232, 0.1);
+    color: var(--text-muted);
+    font-size: 0.85rem;
+}
+
+/* التجاوب مع الشاشات الصغيرة */
+@media (max-width: 768px) {
+    .hero h1 {
+        font-size: 2rem;
+    }
+}
+
+
+/* --- إعدادات صفحات المختبرات (Lab Pages) --- */
+
+.lab-container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 2rem auto;
+    flex: 1;
+}
+
+.lab-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+
+.lab-header h1 {
+    color: var(--text-light);
+    font-size: 2.2rem;
+    margin-bottom: 0.5rem;
+}
+
+.lab-badges {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+/* قسم النظرية (Theory) */
+.article-content {
+    max-width: 850px; /* تحديد عرض النص ليكون مريحاً للعين كالمقالات */
+    margin: 0 auto 3.5rem auto; /* توسيط المقال في منتصف الشاشة */
+    padding: 0 1rem;
+}
+
+.article-section {
+    margin-bottom: 2.2rem;
+}
+
+.article-section h2 {
+    color: var(--accent-ice);
+    font-size: 1.5rem;
+    margin-bottom: 0.8rem;
+    font-weight: 600;
+}
+
+.article-section p {
+    color: var(--text-light);
+    font-size: 1.1rem;
+    line-height: 1.8; /* زيادة التباعد بين الأسطر لسهولة القراءة */
+    opacity: 0.9;
+}
+
+/* قسم التفاعل والصندوق الرملي (Sandbox) */
+.sandbox-area {
+    background-color: rgba(7, 27, 43, 0.5);
+    border: 1px solid var(--primary-teal);
+    border-radius: 12px;
+    padding: 2rem;
+    margin-bottom: 3rem;
+}
+
+/* أزرار التبديل (Toggle Switch) */
+.toggle-container {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.toggle-btn {
+    background-color: transparent;
+    border: 2px solid var(--text-muted);
+    color: var(--text-light);
+    padding: 0.6rem 1.5rem;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.active-vuln {
+    background-color: rgba(255, 75, 75, 0.15);
+    border-color: var(--danger-red);
+    color: var(--danger-red);
+}
+
+.active-fixed {
+    background-color: rgba(0, 230, 118, 0.15);
+    border-color: var(--safe-green);
+    color: var(--safe-green);
+}
+
+/* تقسيم الكود والتجربة */
+.code-and-action {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+
+.code-box, .action-box {
+    background-color: var(--card-bg);
+    padding: 1.5rem;
+    border-radius: 10px;
+}
+
+.code-box h2, .action-box h2 {
+    color: var(--text-light);
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+}
+
+/* تصميم الكود */
+pre {
+    background-color: #030d14;
+    padding: 1rem;
+    border-radius: 8px;
+    overflow-x: auto;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.95rem;
+    color: #e6e6e6;
+    margin-bottom: 1rem;
+}
+
+/* تظليل الأسطر */
+.highlight-line {
+    display: block;
+    padding: 0.2rem 0;
+    font-weight: bold;
+}
+
+.vuln-line {
+    background-color: rgba(255, 75, 75, 0.2);
+    border-left: 4px solid var(--danger-red);
+    color: #ff9999;
+}
+
+.fixed-line {
+    background-color: rgba(0, 230, 118, 0.2);
+    border-left: 4px solid var(--safe-green);
+    color: #99ff99;
+}
+
+.code-explanation {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+/* أزرار الحمولات (Payloads) */
+.payload-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    margin-bottom: 1.5rem;
+}
+
+.payload-btn {
+    background-color: var(--primary-teal);
+    color: var(--text-light);
+    border: none;
+    padding: 0.8rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-family: monospace;
+    font-size: 0.95rem;
+    transition: background-color 0.2s;
+}
+
+.payload-btn:hover {
+    background-color: #1a96a8;
+}
+
+/* مربع النتيجة (Output) */
+.output-box {
+    background-color: #030d14;
+    border: 1px dashed var(--text-muted);
+    padding: 1rem;
+    border-radius: 8px;
+    min-height: 100px;
+    font-family: monospace;
+    color: var(--text-muted);
+}
+
+.attack-success { color: var(--danger-red); }
+.attack-blocked { color: var(--safe-green); }
+
+/* قسم المصادر */
+.sources-section {
+    background-color: var(--card-bg);
+    padding: 1.5rem;
+    border-radius: 10px;
+}
+
+.sources-section h3 {
+    color: var(--accent-ice);
+    margin-bottom: 0.5rem;
+}
+
+.sources-section a {
+    color: var(--primary-teal);
+    text-decoration: none;
+}
+
+.sources-section a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 900px) {
+    .theory-grid, .code-and-action {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ================= Lab 3 & General Custom Layout ================= */
+/* الناف بار والشعار */
+.navbar {
+    display: flex; align-items: center; padding: 1rem 2rem;
+    background-color: #04101a; border-bottom: 1px solid rgba(185, 228, 232, 0.1);
+}
+.logo {
+    display: flex; align-items: center; gap: 0.5rem;
+    color: #EEEEEE; text-decoration: none; font-size: 1.2rem; font-weight: bold;
+}
+.shield-icon { font-size: 1.4rem; }
+
+/* الهيدر والبادجات */
+.header-content { text-align: center; margin: 2rem 0; }
+.header-content h1 { color: #EEEEEE; margin-bottom: 1rem; }
+.badges { display: flex; justify-content: center; gap: 1rem; }
+.badge { padding: 0.4rem 1rem; border-radius: 4px; font-size: 0.85rem; font-weight: bold; }
+.badge-primary { background-color: #167D8D; color: #EEEEEE; }
+.badge-secondary { background-color: #071B2B; color: #B9E4E8; border: 1px solid #167D8D; }
+
+/* قسم الشرح النظري (What is it) */
+.info-section { max-width: 800px; margin: 0 auto 3rem auto; }
+.info-block { margin-bottom: 2rem; }
+.info-block h2 { color: #EEEEEE; font-size: 1.2rem; margin-bottom: 0.5rem; }
+.info-block p { color: #B9E4E8; line-height: 1.6; }
+
+/* أزرار الفيكس (Vulnerable / Fixed Mode) */
+.mode-toggle-container {
+    display: flex; justify-content: center; gap: 1rem; margin-bottom: 2rem;
+}
+.mode-btn {
+    display: flex; align-items: center; gap: 0.5rem;
+    background-color: transparent; border: 1px solid rgba(185, 228, 232, 0.3);
+    color: #EEEEEE; padding: 0.5rem 1.5rem; border-radius: 20px; cursor: pointer;
+    transition: all 0.2s;
+}
+.mode-btn.active { border-color: #167D8D; background-color: rgba(22, 125, 141, 0.1); }
+.dot { width: 10px; height: 10px; border-radius: 50%; }
+.red-dot { background-color: #ff4d4d; }
+.green-dot { background-color: #2e8b57; }
+
+/* التخطيط والعمودين */
+.lab-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: start; }
+.panel {
+    background-color: rgba(7, 27, 43, 0.6); border: 1px solid rgba(185, 228, 232, 0.2);
+    border-radius: 10px; padding: 1.5rem;
+}
+.panel h3 { color: #EEEEEE; margin-top: 0; margin-bottom: 1rem;}
+
+/* أزرار البايلود */
+.payload-buttons { display: flex; flex-direction: column; gap: 0.8rem; margin-bottom: 1.5rem; }
+.payload-btn {
+    background-color: #071B2B; color: #EEEEEE; border: 1px solid rgba(185, 228, 232, 0.3);
+    padding: 0.85rem; border-radius: 6px; text-align: left; cursor: pointer; transition: 0.2s;
+}
+.payload-btn:hover { border-color: #167D8D; }
+
+/* صندوق النتيجة والكود */
+.result-box, .code-box {
+    background-color: #04101a; border: 1px solid rgba(185, 228, 232, 0.2);
+    border-radius: 6px; padding: 1rem; color: #B9E4E8; font-family: monospace;
+}
+.result-box { min-height: 100px; }
+.code-box { overflow-x: auto; font-size: 0.9rem; }
+
+/* بوكس Test Page */
+.inner-test-page {
+    background-color: transparent; border: 1px solid rgba(185, 228, 232, 0.2);
+    border-radius: 8px; padding: 1.2rem; margin-bottom: 1.5rem;
+}
+.test-page-title, .why-fails-title { color: #d4a373 !important; }
+.test-form label { display: block; color: #EEEEEE; margin-bottom: 0.5rem; }
+.input-group { display: flex; gap: 0.5rem; }
+.input-group input {
+    flex: 1; padding: 0.6rem; border-radius: 4px; border: 1px solid rgba(185, 228, 232, 0.3);
+    background-color: #EEEEEE; color: #071B2B;
+}
+.submit-btn {
+    background-color: #167D8D; color: #EEEEEE; border: none; padding: 0 1.2rem;
+    border-radius: 4px; cursor: pointer; font-weight: bold;
+}
+.divider { border: 0; height: 1px; background: rgba(185, 228, 232, 0.1); margin: 1.5rem 0; }
+.explanation-text { color: #EEEEEE; font-size: 0.95rem; line-height: 1.6; }
