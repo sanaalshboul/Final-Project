@@ -1,58 +1,58 @@
-// حالة الموقع الحالية (هل هو مصاب أم تم إصلاحه؟)
+// Current state of the site (vulnerable vs. fixed)
 let isVulnerable = true;
 
-// جلب عناصر الـ HTML
+// Fetch HTML elements
 const vulnBtn = document.getElementById('vuln-btn');
 const fixedBtn = document.getElementById('fixed-btn');
 const targetLine = document.getElementById('target-line');
 const codeExplanation = document.getElementById('code-explanation');
 const outputBox = document.getElementById('simulation-output');
 
-// عند الضغط على زر التبديل إلى "Vulnerable"
+// Handle switching to "Vulnerable" mode
 vulnBtn.addEventListener('click', () => {
     isVulnerable = true;
     
-    // تغيير ألوان الأزرار
+    // Update button styles
     vulnBtn.classList.add('active-vuln');
     fixedBtn.classList.remove('active-fixed');
     
-    // تغيير الكود والشرح للنسخة المصابة
+    // Update code snippet and explanation to the vulnerable version
     targetLine.className = 'highlight-line vuln-line';
     targetLine.innerText = '    // Vulnerable: eval(userInput);';
     codeExplanation.innerHTML = '<strong>Why it fails:</strong> The eval() function runs the input as code without any checks.';
     
-    // إعادة تعيين مربع النتيجة
+    // Reset the output box
     outputBox.innerHTML = 'Waiting for action...';
     outputBox.className = 'output-box';
 });
 
-// عند الضغط على زر التبديل إلى "Fixed"
+// Handle switching to "Fixed" mode
 fixedBtn.addEventListener('click', () => {
     isVulnerable = false;
     
-    // تغيير ألوان الأزرار
+    // Update button styles
     fixedBtn.classList.add('active-fixed');
     vulnBtn.classList.remove('active-vuln');
     
-    // تغيير الكود والشرح للنسخة الآمنة
+    // Update code snippet and explanation to the secure version
     targetLine.className = 'highlight-line fixed-line';
     targetLine.innerText = '    // Fixed: JSON.parse(userInput);';
     codeExplanation.innerHTML = '<strong>The Fix:</strong> We use JSON.parse() which only reads data, it cannot execute code.';
     
-    // إعادة تعيين مربع النتيجة
+    // Reset the output box
     outputBox.innerHTML = 'Waiting for action...';
     outputBox.className = 'output-box';
 });
 
-// وظيفة محاكاة الحمولات (Payload Simulation)
-// يتم استدعاؤها عندما يضغط الزائر على أحد أزرار الـ Payload
+// Payload simulation function
+// Triggered when the visitor clicks one of the payload buttons
 function runPayload(payloadName) {
     if (isVulnerable) {
-        // حالة الهجوم الناجح (الموقع مصاب)
+        // Attack succeeded (site is vulnerable)
         outputBox.innerHTML = `⚠️ <strong>CRITICAL:</strong> Attack successful! <br>Payload "${payloadName}" executed on the page.`;
         outputBox.className = 'output-box attack-success';
     } else {
-        // حالة الهجوم الفاشل (الموقع محمي)
+        // Attack blocked (site is secured)
         outputBox.innerHTML = `🛡️ <strong>BLOCKED:</strong> Attack failed. <br>The fix correctly blocked "${payloadName}".`;
         outputBox.className = 'output-box attack-blocked';
     }
