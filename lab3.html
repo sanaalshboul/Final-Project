@@ -1,94 +1,138 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lab 3: ReDoS | Ghurir Sandbox</title>
+    <!-- TEAM: Change the title to your lab's name -->
+    <title>Lab 3: Regular Expression Denial of Service - Ghurir</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- Top Navigation Bar -->
-    <header class="navbar">
-        <a href="index.html" class="logo">
-            <span class="shield-icon">🛡️</span> Ghurir Sandbox
-        </a>
-    </header>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <a href="index.html" class="logo">🛡️ Ghurir Sandbox</a>
+    </nav>
 
     <main class="lab-container">
-        <!-- Lab Title & Badges -->
-        <div class="header-content">
-            <h1>ReDoS (Regular Expression Denial of Service)</h1>
-            <div class="badges">
-                <span class="badge badge-primary">OWASP: Injection</span>
-                <span class="badge badge-secondary">CWE-400</span>
+        
+        <!-- Lab Header -->
+        <header class="lab-header">
+            <!-- TEAM: Write your vulnerability name -->
+            <h1>Regular Expression Denial of Service (ReDoS)</h1>
+            <div class="lab-badges">
+                <!-- TEAM: Write the OWASP Category and CWE -->
+                <span class="badge">OWASP: A05:2021 - Security Misconfiguration</span>
+                <span class="badge">CWE-1333</span>
             </div>
-        </div>
+        </header>
 
-        <!-- Theory Section (What is it / Why it matters) -->
-        <section class="info-section">
-            <div class="info-block">
+        <!-- Section 1: Theory (What & Why) -->
+        <article class="article-content">
+            <section class="article-section">
                 <h2>1. What is it?</h2>
-                <p>Explain how the bug works in very simple English. Max 3 sentences. For example: "This bug happens when the website uses a poorly designed regular expression to validate user input. Attackers can use this to cause catastrophic backtracking."</p>
-            </div>
-
-            <div class="info-block">
-                <h2>2. Why it matters?</h2>
-                <p>Explain the damage it causes. Keep it simple. For example: "Hackers can send a specific string that freezes the server, making the application unavailable for other users."</p>
-            </div>
-        </section>
-
-        <!-- Two-Column Layout for Lab 3 -->
-        <div class="lab-grid">
-            
-            <!-- Left Column: Payloads + Simulation -->
-            <section class="panel left-panel">
-                <!-- Mode Toggle Buttons (Vulnerable / Fixed) -->
-                <div class="mode-toggle-container">
-                    <button id="vulnerableModeBtn" class="mode-btn active" onclick="setMode('vulnerable')">
-                        <span class="dot red-dot"></span> Vulnerable Mode
-                    </button>
-                    <button id="fixedModeBtn" class="mode-btn" onclick="setMode('fixed')">
-                        <span class="dot green-dot"></span> Fixed Mode
-                    </button>
-                </div>
-
-                <h3>Try it (Payloads)</h3>
-                
-                <!-- Payload Action Buttons -->
-                <div class="payload-buttons">
-                    <button class="payload-btn" onclick="applyPayload('user@example.com')">P1 (Normal)</button>
-                    <button class="payload-btn" onclick="applyPayload('aaaaaaaaaaaaa!')">P2 (Medium)</button>
-                    <button class="payload-btn" onclick="applyPayload('aaaaaaaaaaaaaaaaaaaaaaaaaaaa!')">P3 (Heavy)</button>
-                </div>
-
-                <div class="result-section">
-                    <h3>Simulation Result</h3>
-                    <div id="simulationResult" class="result-box">
-                        Waiting for input...
-                    </div>
-                </div>
+                <!-- TEAM: Explain the vulnerability in max 3 simple sentences -->
+                <p>ReDoS (Regular Expression Denial of Service) happens when crafted input forces a vulnerable regular expression to test millions of pattern combinations. This traps the browser's main thread in heavy processing, maxing out CPU usage and freezing the web page.</p>
             </section>
+            
+            <section class="article-section">
+                <h2>2. Why it matters?</h2>
+                <!-- TEAM: Explain the damage and a real incident -->
+                <p>A single malicious input can max out CPU usage to freeze a user's browser tab or crash an entire application without needing a botnet. For example, in 2019, a single flawed regular expression caused a massive outage at Cloudflare that knocked millions of websites offline for 27 minutes.</p>
+            </section>
+        </article>
 
-            <!-- Right Column: Test Page + Code + Why it fails -->
-            <section class="panel right-panel">
-                
-                <!-- Embedded Test Page Box -->
+        <!-- Section 2: The Interactive Sandbox -->
+        <div class="sandbox-area">
+            
+            <!-- Toggle Switch (Vulnerable / Fixed) -->
+            <div class="toggle-container">
+                <button id="vuln-btn" class="toggle-btn active-vuln">🔴 Vulnerable Mode</button>
+                <button id="fixed-btn" class="toggle-btn">🟢 Fixed Mode</button>
+            </div>
+
+            <div class="code-and-action">
+                <!-- Code Viewer (8-15 lines) -->
+                <div class="code-box">
+
+		<!-- (Test Page) -->
                 <div class="inner-test-page">
-                    <h3 class="test-page-title">Test Page:</h3>
+                    <h3 class="test-page-title">Demo Page</h3>
+		    <br>
                     <form id="emailTestForm" onsubmit="handleEmailSubmit(event)" class="test-form">
-                        <label for="emailInput">Enter your Email:</label>
+                        <label for="emailInput">Enter your Email :</label>
                         <div class="input-group">
-                            <input type="text" id="emailInput" placeholder="name@domain.com" required>
+                            <input type="text" id="emailInput" required>
                             <button type="submit" class="submit-btn">Submit</button>
                         </div>
                     </form>
                 </div>
 
-                <hr class="divider">
+                    <h2>The Code</h2>
+                    <pre><code id="code-display">
+function handleEmailSubmit(emailInput) {
+if (isVulnerable) {
+  <span class="highlight-line vuln-line" id="target-line">let regex = /^([a-zA-Z0-9]+)+@[a-zA-Z0-9]+\.[a-zA-Z]{2,}$/; </span>
+  if (attackType === "heavy") {
+     Result.innerHTML = 'CRITICAL: Heavy Attack.'
+    	return regex.test(emailInput);
+  } 
+  else if (attackType === "medium") {
+    Result.innerHTML = 'WARNING: Medium Payload.';
+    regex.test(emailInput);
+  }
+  if (regex.test(emailInput))
+    Result.innerHTML = `Valid Email.`;
+  else
+    Result.innerHTML = `Invalid Email.`;
+ }
+}
+                    </code></pre>
+                    <!-- TEAM: Explain why this specific line is bad (or how the fix works) -->
+                    <p class="code-explanation" id="code-explanation">
+                        <strong>Why it Fails:</strong>The regular expression has nested repetition which causes catastrophic backtracking on long inputs ,freezing execution.
+                    </p>
+                </div>
 
-                <!-- Code Snippet Display -->
-                <div class="code-section">
-                    <h3>The Code:</h3>
-                    <pre class="code-box"><code id="codeDisplay">// Vulnerable Code
-const emailRegex = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9
+                <!-- Action Area (Payloads & Output) -->
+                <div class="action-box">
+                    <h2>Try it (Payloads)</h2>
+                    <p>Click a Button to test the attack :</p>
+		    <br>
+                    <div class="payload-buttons">
+                        <!-- TEAM: Put 2-3 payload buttons here -->
+			<button class="payload-btn" onclick="runPayload('Payload1')">Normal Email</button>
+                        <button class="payload-btn" onclick="runPayload('Payload2')">Medium ReDoS Payload</button>
+                        <button class="payload-btn" onclick="runPayload('Payload3')">Heavy ReDoS Payload</button>
+                    </div>
+		    <br>
+                    <h2>Simulation Result</h2>
+                    <!-- This box shows what happens when the button is clicked -->
+                    <div id="simulation-output" class="output-box">
+                        Waiting for action...
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 3: Sources -->
+        <div class="sources-section">
+            <h3>Sources</h3>
+            <ul>
+                <li><a href="https://community.owasp.org/attacks/Regular_expression_Denial_of_Service_-_ReDoS" target="_blank">OWASP: Regular Expression Denial of Service (ReDoS)</a></li>
+                <li><a href="https://blog.cloudflare.com/details-of-the-cloudflare-outage-on-july-2-2019/" target="_blank">Cloudflare Incident Report: How a Single ReDoS Regex Stopped Global Servers (July 2019)</a></li>
+            </ul>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>Ghurir Final Project — 42 Irbid Cybersecurity Bootcamp | Safe Simulation Environment</p>
+    </footer>
+
+    <!-- TEAM: Make sure to link a separate JS file for each lab to avoid conflicts (e.g., lab1.js, lab2.js) -->
+    <script src="lab3.js"></script>
+</body>
+</html>

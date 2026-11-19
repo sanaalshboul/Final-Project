@@ -1,61 +1,168 @@
-let isFixed = false;
 
-function applyPayload(payloadValue) {
-    const emailInput = document.getElementById("emailInput");
-    emailInput.value = payloadValue;
-    runValidation(payloadValue);
+let isVulnerable = true;
+
+const vulnBtn = document.getElementById("vuln-btn");
+const fixedBtn = document.getElementById("fixed-btn");
+let targetLine = document.getElementById("target-line");
+const codeExplanation = document.getElementById("code-explanation");
+const outputBox = document.getElementById("simulation-output");
+const emailInput = document.getElementById("emailInput");
+const codeSection = document.getElementById("code-display");
+
+//------------------Activate Vulnerable Mood
+vulnBtn.addEventListener("click", () => {
+  isVulnerable = true;
+
+  vulnBtn.classList.add("active-vuln");
+  fixedBtn.classList.remove("active-fixed");
+  
+  
+  codeSection.innerHTML = `function handleEmailSubmit(emailInput) {
+if (isVulnerable) {
+<span class="highlight-line vuln-line" id="target-line">let regex = /^([a-zA-Z0-9]+)+@[a-zA-Z0-9]+\.[a-zA-Z]{2,}$/; </span>
+  if (attackType === "heavy") {
+    Result.innerHTML = 'CRITICAL: Heavy Attack.'
+    	return regex.test(emailInput);
+  } 
+  else if (attackType === "medium") {
+    Result.innerHTML = 'WARNING: Medium Payload.';
+    regex.test(emailInput);
+  }
+  if (regex.test(emailInput))
+    Result.innerHTML = \`Valid Email.\`;
+  else
+    Result.innerHTML = \`Invalid Email.\`;
+ }
+}`;
+
+    targetLine = document.getElementById("target-line");
+
+  targetLine.className = "highlight-line vuln-line";
+  targetLine.innerText = "let regex = /^([a-zA-Z0-9]+)+@[a-zA-Z0-9]+\\.[a-zA-Z]{2,}$/;";
+  codeExplanation.innerHTML =
+    "<strong>Why it fails:</strong><br>The regular expression has nested repetition which causes catastrophic backtracking on long inputs ,freezing execution.";
+
+  outputBox.innerHTML = "Waiting for action...";
+  outputBox.className = "output-box";
+  
+  emailInput.value ="";
+});
+
+
+//-----------------Activate Fixed Mood
+fixedBtn.addEventListener("click", () => {
+  isVulnerable = false;
+
+  fixedBtn.classList.add("active-fixed");
+  vulnBtn.classList.remove("active-vuln");
+  
+  codeSection.innerHTML = `function handleEmailSubmit(emailInput) {
+  if (isVulnerable == false)  {
+    <span class="highlight-line fixed-line" id="target-line">let regex = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\\.[a-zA-Z]{2,}$/; </span>
+    let isValid = regex.test(userInput);
+    if (isValid)
+      Result.innerHTML = \`SECURE:Valid email accepted safely.\`;
+    else
+      Result.innerHTML = \`BLOCKED:Attack or invalid format blocked.\`;
+  }
+}`;
+
+    targetLine = document.getElementById("target-line");
+
+  targetLine.className = "highlight-line fixed-line";
+  targetLine.innerText = "let regex = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\\.[a-zA-Z]{2,}$/;";
+  
+  codeExplanation.innerHTML =
+    "<strong>The Fix:</strong><br> Removing nested repetition avoids catastrophic backtracking so regex matching stays linear.";
+
+  outputBox.innerHTML = "Waiting for action...";
+  outputBox.className = "output-box";
+  
+  emailInput.value ="";
+});
+
+// ----------------To activate the payload buttons
+function runPayload(payloadName) {
+  const yourEmail = document.getElementById("emailInput");
+
+  if (payloadName == "Payload1") {
+    yourEmail.value = "testEmail@gmail.com";
+  } else if (payloadName == "Payload2") {
+    yourEmail.value = "aaaaaaaaaaaaaaaaaaaaaaaaaa!"; 
+  } else if (payloadName == "Payload3") {
+    yourEmail.value =
+      "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa!"; 
+  }
 }
 
+//--------------To determine the type of attack (Medium or Heavy)
+function getAttackType(userInput) {
+  if (userInput.length > 35) {
+    return "heavy";
+  } else if (userInput.length > 25) {
+    return "medium";
+  }
+  return "none";
+}
+
+//-------------To handle the submit button
 function handleEmailSubmit(event) {
-    event.preventDefault();
-    const emailValue = document.getElementById("emailInput").value;
-    runValidation(emailValue);
-}
+  event.preventDefault();
+  //const emailInput = document.getElementById("emailInput");
+  const userInput = emailInput.value.trim();
+  const outputBox = document.getElementById("simulation-output"); 
 
-function runValidation(input) {
-    const resultBox = document.getElementById("simulationResult");
+  outputBox.innerHTML = " ";
+  outputBox.className = "output-box";
+  
+  let regex;
+  
+  //--Vulnerable Mood--
+  if (isVulnerable) {
+    regex = /^([a-zA-Z0-9]+)+@[a-zA-Z0-9]+\.[a-zA-Z]{2,}$/;
+    let attackType = getAttackType(userInput);
     
-    const vulnerableRegex = /^([a-zA-Z0-9])+([a-zA-Z0-9\._-])*@([a-zA-Z0-9_-])+([a-zA-Z0-9\._-]+)+$/;
-    const safeRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-    const activeRegex = isFixed ? safeRegex : vulnerableRegex;
-
-    const startTime = performance.now();
-    const isValid = activeRegex.test(input);
-    const endTime = performance.now();
-    const duration = (endTime - startTime).toFixed(2);
-
-    resultBox.innerHTML = `
-        Mode: ${isFixed ? "Safe" : "Vulnerable"}<br>
-        Input Length: ${input.length} chars<br>
-        Execution Time: <span style="color: ${duration > 50 ? '#ff4d4d' : '#B9E4E8'};">${duration} ms</span>
-    `;
-}
-
-function setMode(mode) {
-    const vulBtn = document.getElementById("vulnerableModeBtn");
-    const fixBtn = document.getElementById("fixedModeBtn");
-    const codeDisplay = document.getElementById("codeDisplay");
-    const explanationText = document.getElementById("whyItFailsText");
-    const explanationTitle = document.querySelector(".why-fails-title");
-
-    if (mode === 'fixed') {
-        isFixed = true;
-        fixBtn.classList.add("active");
-        vulBtn.classList.remove("active");
-        
-        codeDisplay.textContent = `// Fixed Code (Safe Regex)\nconst safeRegex = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/;\n\nfunction validateEmail(email) {\n    return safeRegex.test(email);\n}`;
-        
-        explanationTitle.textContent = "How it's fixed:";
-        explanationText.textContent = "The new regex avoids nested quantifiers and simply checks for characters separated by '@' and '.', eliminating the risk of catastrophic backtracking.";
-    } else {
-        isFixed = false;
-        vulBtn.classList.add("active");
-        fixBtn.classList.remove("active");
-        
-        codeDisplay.textContent = `// Vulnerable Code\nconst emailRegex = /^([a-zA-Z0-9_\\.\\-])+\\@(([a-zA-Z0-9\\-])+\\.)+([a-zA-Z0-9]{2,4})+$/;\n\nfunction validateEmail(email) {\n    return emailRegex.test(email);\n}`;
-        
-        explanationTitle.textContent = "Why it fails:";
-        explanationText.textContent = "The regular expression uses nested quantifiers causing Catastrophic Backtracking when a long, almost-valid string is provided.";
+    if (attackType === "heavy") {
+      outputBox.innerHTML = ` <strong>CRITICAL:</strong> Heavy ReDoS Attack Successful! <br>Payload triggered vulnerability.`;
+      outputBox.className = "output-box attack-success";
+      
+      requestAnimationFrame(() => {
+        setTimeout(() => {
+            regex.test(userInput);
+        } , 50);
+      });
+      
+      return;
+    } 
+    else if (attackType === "medium") {
+      outputBox.innerHTML = ` <strong>WARNING:</strong> Medium ReDoS Payload detected!`;
+      outputBox.className = "output-box attack-success";
+      regex.test(userInput);
+      return;
     }
+    
+    let isValid = regex.test(userInput);
+    if (isValid) {
+      outputBox.innerHTML = ` <strong>Valid Email:</strong> Normal email passed successfully.`;
+      outputBox.className = "output-box attack-blocked";
+    } 
+    else {
+      outputBox.innerHTML = ` <strong>Invalid:</strong> Email format is incorrect.`;
+      outputBox.className = "output-box";
+    }
+  }
+  //--Fixed Mood--
+  else {
+    regex = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z]{2,}$/;
+    let isValid = regex.test(userInput);
+    
+    if (isValid) {
+      outputBox.innerHTML = ` <strong>SECURE:</strong> Valid email accepted safely.`;
+      outputBox.className = "output-box attack-blocked";
+    } else {
+      outputBox.innerHTML = ` <strong>BLOCKED:</strong> Attack or invalid format blocked successfully.`;
+      outputBox.className = "output-box attack-blocked";
+    }
+  }
 }
+
