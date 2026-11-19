@@ -29,6 +29,8 @@ body {
 .navbar {
     display: flex;
     align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
     padding: 1.2rem 5%;
     background-color: rgba(7, 27, 43, 0.95);
     border-bottom: 1px solid rgba(185, 228, 232, 0.15);
@@ -52,6 +54,31 @@ body {
 
 .logo:hover {
     color: var(--text-light);
+}
+
+/* Visible Back to Home Button on Lab Pages */
+.back-home-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.45rem 1rem;
+    border-radius: 50px;
+    border: 1px solid var(--primary-teal);
+    background-color: rgba(22, 125, 141, 0.15);
+    color: var(--accent-ice);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    white-space: nowrap;
+    transition: all 0.25s ease;
+}
+
+.back-home-btn:hover {
+    border-color: var(--accent-ice);
+    color: var(--text-light);
+    background-color: rgba(22, 125, 141, 0.35);
+    box-shadow: 0 0 12px rgba(185, 228, 232, 0.45);
+    transform: translateX(-2px);
 }
 
 .shield-icon {
@@ -102,7 +129,7 @@ body {
 
 .cards-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
     gap: 2rem;
 }
 
@@ -150,6 +177,12 @@ body {
     border-radius: 4px;
     font-weight: 600;
     text-transform: uppercase;
+}
+
+.difficulty-tag.easy {
+    background-color: rgba(0, 230, 118, 0.15);
+    color: var(--safe-green);
+    border: 1px solid rgba(0, 230, 118, 0.3);
 }
 
 .difficulty-tag.medium {
@@ -205,13 +238,6 @@ body {
     font-size: 0.85rem;
 }
 
-/* Mobile Responsiveness */
-@media (max-width: 768px) {
-    .hero h1 {
-        font-size: 2rem;
-    }
-}
-
 /* ================= Lab Pages Styles ================= */
 
 .lab-container {
@@ -244,6 +270,7 @@ body {
 .lab-badges .badge,
 .badges .badge {
     display: inline-block;
+    max-width: 100%;
     background-color: rgba(22, 125, 141, 0.15);
     color: var(--accent-ice);
     border: 1px solid var(--primary-teal);
@@ -252,6 +279,8 @@ body {
     font-size: 0.85rem;
     font-weight: 600;
     text-decoration: none;
+    text-align: center;
+    overflow-wrap: break-word;
     cursor: pointer;
     transition: all 0.3s ease;
 }
@@ -305,6 +334,7 @@ body {
 .mode-toggle-container {
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
     gap: 1.2rem;
     margin-bottom: 2rem;
 }
@@ -313,6 +343,7 @@ body {
 .mode-btn {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 0.5rem;
     background-color: rgba(12, 38, 59, 0.8);
     border: 2px solid var(--primary-teal);
@@ -362,6 +393,8 @@ body {
     background-color: var(--card-bg);
     padding: 1.5rem;
     border-radius: 10px;
+    min-width: 0;
+    max-width: 100%;
 }
 
 .code-box h2, .action-box h2 {
@@ -375,6 +408,7 @@ pre {
     background-color: #030d14;
     padding: 1rem;
     border-radius: 8px;
+    max-width: 100%;
     overflow-x: auto;
     font-family: 'Courier New', Courier, monospace;
     font-size: 0.95rem;
@@ -404,6 +438,7 @@ pre {
 .code-explanation {
     font-size: 0.9rem;
     color: var(--text-muted);
+    overflow-wrap: break-word;
 }
 
 /* Payload Buttons */
@@ -423,6 +458,7 @@ pre {
     cursor: pointer;
     font-family: monospace;
     font-size: 0.95rem;
+    overflow-wrap: break-word;
     transition: background-color 0.2s ease;
 }
 
@@ -439,6 +475,7 @@ pre {
     min-height: 100px;
     font-family: monospace;
     color: var(--text-muted);
+    overflow-wrap: break-word;
 }
 
 .attack-success { color: var(--danger-red); }
@@ -449,6 +486,11 @@ pre {
     background-color: var(--card-bg);
     padding: 1.5rem;
     border-radius: 10px;
+    overflow-wrap: break-word;
+}
+
+.sources-section ul {
+    padding-left: 1.2rem;
 }
 
 .sources-section h3 {
@@ -459,23 +501,18 @@ pre {
 .sources-section a {
     color: var(--primary-teal);
     text-decoration: none;
+    overflow-wrap: break-word;
 }
 
 .sources-section a:hover {
     text-decoration: underline;
 }
 
-@media (max-width: 900px) {
-    .theory-grid, .code-and-action, .lab-grid {
-        grid-template-columns: 1fr;
-    }
-}
-
 /* ================= Lab 3 Custom Layout ================= */
 
 .header-content { text-align: center; margin: 2rem 0; }
 .header-content h1 { color: var(--text-light); margin-bottom: 1rem; }
-.badges { display: flex; justify-content: center; gap: 1rem; }
+.badges { display: flex; justify-content: center; flex-wrap: wrap; gap: 1rem; }
 
 /* Theory Info Section */
 .info-section { max-width: 800px; margin: 0 auto 3rem auto; }
@@ -490,6 +527,8 @@ pre {
     border: 1px solid rgba(185, 228, 232, 0.2);
     border-radius: 10px;
     padding: 1.5rem;
+    min-width: 0;
+    max-width: 100%;
 }
 .panel h3 { color: var(--text-light); margin-top: 0; margin-bottom: 1rem; }
 
@@ -502,6 +541,7 @@ pre {
     color: var(--accent-ice);
     font-family: monospace;
     min-height: 100px;
+    overflow-wrap: break-word;
 }
 
 /* Embedded Test Page Box */
@@ -511,12 +551,19 @@ pre {
     border-radius: 8px;
     padding: 1.2rem;
     margin-bottom: 1.5rem;
+    max-width: 100%;
 }
 .test-page-title, .why-fails-title { color: #d4a373 !important; }
 .test-form label { display: block; color: var(--text-light); margin-bottom: 0.5rem; }
-.input-group { display: flex; gap: 0.5rem; }
+.input-group {
+    display: flex;
+    gap: 0.5rem;
+    width: 100%;
+}
 .input-group input {
     flex: 1;
+    min-width: 0;
+    width: 100%;
     padding: 0.6rem;
     border-radius: 4px;
     border: 1px solid rgba(185, 228, 232, 0.3);
@@ -527,10 +574,79 @@ pre {
     background-color: var(--primary-teal);
     color: var(--text-light);
     border: none;
-    padding: 0 1.2rem;
+    padding: 0.6rem 1.2rem;
     border-radius: 4px;
     cursor: pointer;
     font-weight: bold;
+    white-space: nowrap;
 }
 .divider { border: 0; height: 1px; background: rgba(185, 228, 232, 0.1); margin: 1.5rem 0; }
 .explanation-text { color: var(--text-light); font-size: 0.95rem; line-height: 1.6; }
+
+/* ================= Responsive Breakpoints ================= */
+@media (max-width: 900px) {
+    .theory-grid,
+    .code-and-action,
+    .lab-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero h1 {
+        font-size: 2rem;
+    }
+
+    .lab-container {
+        width: 94%;
+        margin: 1.5rem auto;
+    }
+
+    .lab-header h1 {
+        font-size: 1.6rem;
+    }
+
+    .sandbox-area {
+        padding: 1.2rem;
+    }
+
+    .code-box,
+    .action-box {
+        padding: 1rem;
+    }
+
+    pre {
+        font-size: 0.85rem;
+        padding: 0.8rem;
+    }
+}
+
+@media (max-width: 500px) {
+    .navbar {
+        padding: 1rem 4%;
+    }
+
+    .logo {
+        font-size: 1.1rem;
+    }
+
+    .back-home-btn {
+        font-size: 0.8rem;
+        padding: 0.35rem 0.75rem;
+    }
+
+    .toggle-btn,
+    .mode-btn {
+        width: 100%;
+        padding: 0.6rem 1rem;
+        font-size: 0.95rem;
+    }
+
+    .input-group {
+        flex-direction: column;
+    }
+
+    .submit-btn {
+        width: 100%;
+    }
+}
