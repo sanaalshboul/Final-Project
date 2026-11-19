@@ -508,8 +508,7 @@ pre {
     text-decoration: underline;
 }
 
-/* ================= Lab 3 Custom Layout ================= */
-
+/* ================= Lab 2 (ReDoS) Custom Layout ================= */
 .header-content { text-align: center; margin: 2rem 0; }
 .header-content h1 { color: var(--text-light); margin-bottom: 1rem; }
 .badges { display: flex; justify-content: center; flex-wrap: wrap; gap: 1rem; }
