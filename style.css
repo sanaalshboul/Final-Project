@@ -649,3 +649,206 @@ pre {
         width: 100%;
     }
 }
+/* ================= Smooth Scroll & Partner Intro Section ================= */
+html {
+    scroll-behavior: smooth;
+}
+
+.partner-intro {
+    position: relative;
+    min-height: calc(100vh - 70px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 3.5rem 1.5rem 5rem;
+    /* Purple & white translucent gradient fading seamlessly into the dark navy background */
+    background:
+        radial-gradient(circle at 20% 15%, rgba(255, 255, 255, 0.30) 0%, rgba(255, 255, 255, 0) 45%),
+        radial-gradient(circle at 80% 20%, rgba(168, 85, 247, 0.45) 0%, rgba(123, 31, 162, 0) 52%),
+        linear-gradient(
+            180deg,
+            rgba(255, 255, 255, 0.22) 0%,
+            rgba(138, 43, 226, 0.48) 28%,
+            rgba(88, 28, 135, 0.32) 64%,
+            rgba(7, 27, 43, 0) 100%
+        );
+    will-change: opacity;
+}
+
+.partner-intro-content {
+    max-width: 820px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    will-change: transform;
+}
+
+.intro-eyebrow {
+    display: inline-block;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: #f3e8ff;
+    background-color: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    padding: 0.35rem 1.1rem;
+    border-radius: 50px;
+    margin-bottom: 2rem;
+    backdrop-filter: blur(6px);
+}
+
+.partner-logos {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 2.2rem;
+}
+
+.logo-pill {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.85rem 1.6rem;
+    border-radius: 16px;
+    height: 92px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.logo-pill:hover {
+    transform: translateY(-3px);
+}
+
+/* White frosted pill for Abdulla Al Ghurair Foundation logo */
+.logo-pill-light {
+    background-color: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    box-shadow: 0 10px 30px rgba(88, 28, 135, 0.35);
+}
+
+/* Dark violet glass pill for 42 Irbid white logo */
+.logo-pill-dark {
+    background-color: rgba(15, 10, 35, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    box-shadow: 0 10px 30px rgba(7, 27, 43, 0.45);
+    backdrop-filter: blur(8px);
+}
+
+.logo-pill img {
+    max-height: 58px;
+    max-width: 220px;
+    width: auto;
+    object-fit: contain;
+    display: block;
+}
+
+.logo-pill-dark img {
+    mix-blend-mode: screen;
+}
+
+.logo-divider {
+    font-size: 1.8rem;
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.7);
+    user-select: none;
+}
+
+.intro-title {
+    font-size: 2.3rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 1rem;
+    text-shadow: 0 2px 16px rgba(45, 10, 80, 0.45);
+}
+
+.intro-subtitle {
+    font-size: 1.1rem;
+    color: #efe5ff;
+    max-width: 650px;
+    line-height: 1.75;
+    margin-bottom: 2.5rem;
+}
+
+.scroll-cue {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.7rem 1.6rem;
+    border-radius: 50px;
+    background-color: rgba(255, 255, 255, 0.14);
+    border: 1px solid rgba(255, 255, 255, 0.38);
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    backdrop-filter: blur(6px);
+    transition: all 0.25s ease;
+}
+
+.scroll-cue:hover {
+    background-color: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 0 18px rgba(216, 180, 254, 0.55);
+    transform: translateY(2px);
+}
+
+.scroll-arrow {
+    display: inline-block;
+    animation: gentleBounce 1.8s infinite;
+}
+
+@keyframes gentleBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(4px); }
+}
+
+/* Updated Footer Typography */
+.footer-main {
+    color: var(--accent-ice);
+    font-size: 0.92rem;
+    margin-bottom: 0.3rem;
+}
+
+.footer-sub {
+    color: var(--text-muted);
+    font-size: 0.82rem;
+}
+
+/* Mobile Adjustments for Partner Intro */
+@media (max-width: 600px) {
+    .partner-intro {
+        min-height: calc(100vh - 64px);
+        padding: 2.5rem 1.2rem 3.5rem;
+    }
+
+    .intro-title {
+        font-size: 1.7rem;
+    }
+
+    .intro-subtitle {
+        font-size: 0.98rem;
+    }
+
+    .partner-logos {
+        flex-direction: column;
+        gap: 0.9rem;
+    }
+
+    .logo-pill {
+        width: 100%;
+        max-width: 260px;
+        height: 80px;
+        padding: 0.7rem 1.2rem;
+    }
+
+    .logo-pill img {
+        max-height: 48px;
+    }
+
+    .logo-divider {
+        font-size: 1.3rem;
+    }
+}
