@@ -1,112 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- TEAM: Change the title to your lab's name -->
-    <title>Lab X: Vulnerability Name - Vulno42</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lab 1: DOM-Based Open Redirect - Vulno42</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .redirect-form{display:grid;gap:.6rem;margin:1rem 0}.redirect-form label{color:var(--accent-ice);font-weight:600}
+    .redirect-form input{width:100%;padding:.85rem;border-radius:7px;border:1px solid var(--primary-teal);background:#030d14;color:#eee;font:inherit}
+    .redirect-form input:focus-visible,button:focus-visible,a:focus-visible{outline:3px solid #b9e4e8;outline-offset:3px}
+    .browser-preview{margin:1.2rem 0;border:1px solid var(--primary-teal);border-radius:10px;overflow:hidden;background:#030d14}
+    .browser-toolbar{display:flex;align-items:center;gap:.65rem;padding:.75rem;background:#102e43;border-bottom:1px solid #167d8d}
+    .browser-dots{color:#b9e4e8;white-space:nowrap}.browser-address{flex:1;min-width:0;overflow-wrap:anywhere;font: .82rem monospace;color:#d7f2f4}
+    .browser-content{padding:1.2rem;min-height:110px}.browser-content h3{margin-bottom:.5rem;color:var(--accent-ice)}
+    .trace-list{margin:1rem 0 0;padding-left:1.4rem;line-height:1.8;color:var(--text-light)}
+    .trace-list li{overflow-wrap:anywhere}.safe-note{color:var(--text-muted);font-size:.9rem;margin-top:.7rem}
+    .lab1-actions{display:flex;gap:.65rem;flex-wrap:wrap}.lab1-actions button{flex:1}
+    @media(max-width:680px){.browser-toolbar{align-items:flex-start}.browser-dots{display:none}.lab1-actions{flex-direction:column}}
+  </style>
 </head>
 <body>
-
-    <!-- Navbar -->
-    <nav class="navbar">
-        <a href="index.html" class="logo">🛡️ Vulno42</a>
-        <a href="index.html" class="back-home-btn">← Back to Home</a>
-    </nav>
-
-    <main class="lab-container">
-        
-        <!-- Lab Header -->
-        <header class="lab-header">
-            <!-- TEAM: Write your vulnerability name -->
-            <h1>Vulnerability Name Here</h1>
-            <div class="lab-badges">
-                <!-- TEAM: Replace '#' with the actual article/documentation links -->
-                <a href="#" target="_blank" rel="noopener noreferrer" class="badge lab-badge-link">OWASP: Injection ↗</a>
-                <a href="#" target="_blank" rel="noopener noreferrer" class="badge lab-badge-link">CWE-XXX ↗</a>
-            </div>
-        </header>
-
-        <!-- Section 1: Theory (What & Why) -->
-        <article class="article-content">
-            <section class="article-section">
-                <h2>1. What is it?</h2>
-                <!-- TEAM: Explain the vulnerability in max 3 simple sentences -->
-                <p>Explain how the bug works in very simple English. Max 3 sentences. For example: "This bug happens when the website trusts user input without checking it first. Attackers can use this to run bad code."</p>
-            </section>
-            
-            <section class="article-section">
-                <h2>2. Why it matters?</h2>
-                <!-- TEAM: Explain the damage and a real incident -->
-                <p>Explain the damage it causes. Keep it simple. For example: "Hackers can steal passwords or freeze the server." Mention one real-world incident here if you can.</p>
-            </section>
-        </article>
-
-        <!-- Section 2: The Interactive Sandbox -->
-        <div class="sandbox-area">
-            
-            <!-- Toggle Switch (Vulnerable / Fixed) -->
-            <div class="toggle-container">
-                <button id="vuln-btn" class="toggle-btn active-vuln">🔴 Vulnerable Mode</button>
-                <button id="fixed-btn" class="toggle-btn">🟢 Fixed Mode</button>
-            </div>
-
-            <div class="code-and-action">
-                <!-- Code Viewer (8-15 lines) -->
-                <div class="code-box">
-                    <h2>The Code</h2>
-                    <pre><code id="code-display">
-// TEAM: Put your 8-15 lines of code here.
-function doSomething(userInput) {
-    let safeData = checkData(userInput);
-<span class="highlight-line vuln-line" id="target-line">    // Vulnerable: eval(userInput);</span>
-    return safeData;
-}
-                    </code></pre>
-                    <!-- TEAM: Explain why this specific line is bad (or how the fix works) -->
-                    <p class="code-explanation" id="code-explanation">
-                        <strong>Why it fails:</strong> The eval() function runs the input as code without any checks.
-                    </p>
-                </div>
-
-                <!-- Action Area (Payloads & Output) -->
-                <div class="action-box">
-                    <h2>3. Try it (Payloads)</h2>
-                    <p>Click a button to test the attack:</p>
-                    <div class="payload-buttons">
-                        <!-- TEAM: Put 2-3 payload buttons here -->
-                        <button class="payload-btn" onclick="runPayload('Payload 1')">&lt;script&gt;Attack 1&lt;/script&gt;</button>
-                        <button class="payload-btn" onclick="runPayload('Payload 2')">{"admin": true}</button>
-                    </div>
-
-                    <h2>Simulation Result</h2>
-                    <!-- This box shows what happens when the button is clicked -->
-                    <div id="simulation-output" class="output-box">
-                        Waiting for action...
-                    </div>
-                </div>
-            </div>
+  <nav class="navbar"><a href="index.html" class="logo">🛡️ Vulno42</a><a href="index.html" class="back-home-btn">← Back to Home</a></nav>
+  <main class="lab-container">
+    <header class="lab-header">
+      <h1>DOM-Based Open Redirect</h1>
+      <div class="lab-badges">
+        <a class="badge lab-badge-link" href="https://owasp.org/Top10/A01_2021-Broken_Access_Control/" target="_blank" rel="noopener noreferrer">OWASP A01:2021 — Broken Access Control ↗</a>
+        <a class="badge lab-badge-link" href="https://cwe.mitre.org/data/definitions/601.html" target="_blank" rel="noopener noreferrer">CWE-601 ↗</a>
+      </div>
+    </header>
+    <article class="article-content">
+      <section class="article-section"><h2>1. What is it?</h2><p>A DOM-based open redirect occurs when JavaScript reads an attacker-controlled URL parameter and uses it as a navigation destination without validation. A trusted-looking link can then send a visitor to an unrelated website.</p></section>
+      <section class="article-section"><h2>2. Why it matters?</h2><p>Attackers can disguise phishing destinations behind a familiar domain, increasing the chance that users trust the link. The weakness is classified as CWE-601: URL Redirection to Untrusted Site.</p></section>
+    </article>
+    <section class="sandbox-area" aria-label="Interactive redirect sandbox">
+      <div class="toggle-container" role="group" aria-label="Security mode">
+        <button type="button" id="vuln-btn" class="toggle-btn active-vuln" aria-pressed="true">🔴 Vulnerable Mode</button>
+        <button type="button" id="fixed-btn" class="toggle-btn" aria-pressed="false">🟢 Fixed Mode</button>
+      </div>
+      <div class="code-and-action">
+        <div class="code-box"><h2>The Code</h2><pre><code id="code-display" aria-live="polite"></code></pre><p class="code-explanation" id="code-explanation"></p></div>
+        <div class="action-box">
+          <h2>3. Try it (Payloads)</h2><p>Use the same payload in both modes to compare results.</p>
+          <div class="payload-buttons">
+            <button type="button" class="payload-btn" data-payload="safe">P1 — Safe internal path</button>
+            <button type="button" class="payload-btn" data-payload="external">P2 — External phishing URL</button>
+            <button type="button" class="payload-btn" data-payload="protocol">P3 — Protocol-relative URL</button>
+          </div>
+          <form class="redirect-form" id="redirect-form">
+            <label for="redirect-input">Custom next parameter</label>
+            <input id="redirect-input" type="text" value="/dashboard" spellcheck="false" autocomplete="off" aria-describedby="redirect-hint" maxlength="1000">
+            <p id="redirect-hint" class="safe-note">Examples: /dashboard or https://example.org/fake-login</p>
+            <div class="lab1-actions"><button type="submit" class="payload-btn">▶ Test Redirect</button><button type="button" class="payload-btn" id="reset-btn">↺ Reset</button></div>
+          </form>
+          <h2>Browser Preview</h2>
+          <div class="browser-preview" aria-label="Safe simulated browser">
+            <div class="browser-toolbar"><span class="browser-dots" aria-hidden="true">● ● ●</span><span class="browser-address" id="browser-address">https://vulno42.local/login</span></div>
+            <div class="browser-content"><h3 id="browser-heading">Waiting for action</h3><p id="browser-message">No navigation will take place. This is a local preview.</p></div>
+          </div>
+          <h2>Simulation Result</h2><div id="simulation-output" class="output-box" role="status" aria-live="polite">Waiting for action...</div>
+          <h2 style="margin-top:1rem">Attack Trace</h2><ol id="attack-trace" class="trace-list" aria-live="polite"><li>Choose a payload to see the decision steps.</li></ol>
+          <p class="safe-note">Safety: no external navigation, network requests, or real phishing pages are used.</p>
         </div>
-
-        <!-- Section 3: Sources -->
-        <div class="sources-section">
-            <h3>Sources</h3>
-            <ul>
-                <!-- TEAM: Put your links here -->
-                <li><a href="#" target="_blank">OWASP Documentation</a></li>
-                <li><a href="#" target="_blank">News article about the incident</a></li>
-            </ul>
-        </div>
-
-    </main>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <p>Vulno42 Final Project — 42 Irbid Cybersecurity Bootcamp | Safe Simulation Environment</p>
-    </footer>
-
-    <!-- TEAM: Make sure to link a separate JS file for each lab to avoid conflicts (e.g., lab1.js, lab2.js) -->
-    <script src="lab-script.js"></script>
+      </div>
+    </section>
+    <section class="sources-section"><h3>Sources</h3><ul>
+      <li><a href="https://cwe.mitre.org/data/definitions/601.html" target="_blank" rel="noopener noreferrer">MITRE CWE-601 — URL Redirection to Untrusted Site</a></li>
+      <li><a href="https://portswigger.net/web-security/dom-based/open-redirection" target="_blank" rel="noopener noreferrer">PortSwigger — DOM-based open redirection</a></li>
+      <li><a href="https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html" target="_blank" rel="noopener noreferrer">OWASP — Unvalidated Redirects Cheat Sheet</a></li>
+    </ul></section>
+  </main>
+  <footer class="footer"><p>Vulno42 — 42 Irbid Cybersecurity Bootcamp | Safe Simulation Environment</p></footer>
+  <script src="lab1.js"></script>
 </body>
 </html>
