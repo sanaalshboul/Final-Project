@@ -478,8 +478,8 @@ pre {
     overflow-wrap: break-word;
 }
 
-.attack-success { color: var(--danger-red); }
-.attack-blocked { color: var(--safe-green); }
+.attack-success, .output-vuln { color: var(--danger-red); }
+.attack-blocked, .output-fixed { color: var(--safe-green); }
 
 /* Sources Section */
 .sources-section {
