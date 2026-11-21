@@ -80,7 +80,7 @@ if (typeof document !== 'undefined') {
       if (index === highlight) {
         const span = document.createElement('span');
         span.className = `highlight-line ${isVulnerable ? 'vuln' : 'fixed'}-line`;
-        span.textContent = line;
+        span.textContent = line + '\n';
         code.appendChild(span);
       } else {
         code.appendChild(document.createTextNode(line + '\n'));
@@ -96,7 +96,7 @@ if (typeof document !== 'undefined') {
     address.textContent = DEMO_ORIGIN + '/login';
     heading.textContent = 'Waiting for action';
     message.textContent = 'No navigation will take place. This is a local preview.';
-    appendTrace(['Choose a payload to see the decision steps.']);
+    appendTrace(['Select a payload, then click Test Redirect to see the decision steps.']);
   }
   function setMode(vulnerable) {
     isVulnerable = vulnerable;
@@ -111,8 +111,8 @@ if (typeof document !== 'undefined') {
     const next = raw.trim();
     const result = isVulnerable ? vulnerableRedirect(next) : fixedRedirect(next);
     const steps = [
-      `1. Read URL parameter: next=${next || '(empty)'}`,
-      isVulnerable ? '2. Vulnerable code checks only whether next exists.' : '2. Fixed code compares next with the internal allowlist.'
+      `Read URL parameter: next=${next || '(empty)'}`,
+      isVulnerable ? 'Vulnerable code checks only whether next exists.' : 'Fixed code compares next with the internal allowlist.'
     ];
     if (!result.allowed) {
       address.textContent = DEMO_ORIGIN + '/login';
@@ -120,18 +120,27 @@ if (typeof document !== 'undefined') {
       message.textContent = result.reason + '. The browser stays on the trusted page.';
       output.className = 'output-box attack-blocked';
       output.textContent = '🛡️ BLOCKED — ' + result.reason;
-      steps.push('3. Navigation denied. No destination is opened.');
+      steps.push('Navigation denied. No destination is opened.');
     } else {
       let previewDestination;
       try { previewDestination = new URL(result.destination, DEMO_ORIGIN).href; }
-      catch { previewDestination = '(invalid URL) ' + result.destination; }
+      catch {
+        address.textContent = DEMO_ORIGIN + '/login';
+        heading.textContent = 'Invalid destination';
+        message.textContent = 'The supplied destination cannot be parsed as a URL. No navigation occurs.';
+        output.className = 'output-box attack-blocked';
+        output.textContent = '🛡️ INVALID — Destination is not a valid URL.';
+        steps.push('Destination cannot be parsed; no navigation occurs.');
+        appendTrace(steps);
+        return { allowed: false, reason: 'Invalid URL' };
+      }
       address.textContent = previewDestination;
       heading.textContent = 'Redirect accepted (simulation)';
-      message.textContent = 'The vulnerable browser would follow this destination. No real navigation occurs.';
-      const external = !previewDestination.startsWith(DEMO_ORIGIN + '/');
+      message.textContent = 'A redirect to this destination would be allowed by the selected mode. No real navigation occurs.';
+      const external = new URL(previewDestination).origin !== DEMO_ORIGIN;
       output.className = 'output-box ' + (external ? 'attack-success' : 'attack-blocked');
       output.textContent = external ? '⚠️ ATTACK SUCCEEDED — external destination accepted (simulated).' : '✅ Internal destination accepted (simulated).';
-      steps.push('3. Destination accepted: ' + previewDestination + ' (preview only).');
+      steps.push('Destination accepted: ' + previewDestination + ' (preview only).');
     }
     appendTrace(steps);
     return result;
@@ -141,7 +150,7 @@ if (typeof document !== 'undefined') {
   document.querySelectorAll('[data-payload]').forEach(button => {
     button.addEventListener('click', () => {
       input.value = PRESETS[button.dataset.payload];
-      simulate(input.value);
+      resetPreview();
     });
   });
   byId('redirect-form').addEventListener('submit', event => {
@@ -149,7 +158,7 @@ if (typeof document !== 'undefined') {
     simulate(input.value);
   });
   byId('reset-btn').addEventListener('click', () => {
-    input.value = '/dashboard';
+    input.value = '';
     resetPreview();
   });
   setMode(true);
