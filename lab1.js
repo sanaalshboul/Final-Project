@@ -105,6 +105,7 @@ if (typeof document !== 'undefined') {
     vulnBtn.setAttribute('aria-pressed', String(vulnerable));
     fixedBtn.setAttribute('aria-pressed', String(!vulnerable));
     renderCode();
+    input.value = '';
     resetPreview();
   }
   function simulate(raw) {
