@@ -161,13 +161,15 @@ const PAYLOADS = {
 
 // ===================== CORE: RUN ANY PAYLOAD =====================
 function executePayload(jsonText, gadget) {
+    
     const snap = snapshotProto();
     let changes = [];
     let gadgetMsg = '';
     let error = null;
     let probes = [];
-
+    
     try {
+        
         const parsed = JSON.parse(jsonText);
         if (parsed === null || typeof parsed !== 'object' || Array.isArray(parsed)) {
             throw new Error('Payload must be a JSON object, e.g. {"__proto__": {"admin": true}}');
@@ -227,6 +229,7 @@ function executePayload(jsonText, gadget) {
 // Preset buttons (Payload 1 / Payload 2): also show the payload in the textbox
 function runPayload(payloadName) {
     const p = PAYLOADS[payloadName];
+    resetOutput();
     if (!p) return;
     payloadInput.value = p.json;
     // executePayload(p.json, p.gadget);
@@ -257,7 +260,8 @@ vulnBtn.addEventListener('click', () => {
         '<code>__proto__</code> and <code>constructor.prototype</code>. Attacker-controlled keys end up ' +
         'writing into <code>Object.prototype</code>, which every object inherits from.';
     resetOutput();
-    payloadInput.value= '{"__proto__": {"role": "admin"}}';
+    payloadInput.value="";
+    payloadInput.setAttribute("placeholder", '{"__proto__": {"role": "admin"}}');
 });
 
 fixedBtn.addEventListener('click', () => {
@@ -271,7 +275,8 @@ fixedBtn.addEventListener('click', () => {
         '<code>prototype</code>) are skipped, <code>Object.keys()</code> / <code>Object.hasOwn()</code> only ' +
         'touch own properties, and the target is created with <code>Object.create(null)</code> so it has no prototype to pollute.';
     resetOutput();
-    payloadInput.value= '{"__proto__": {"role": "admin"}}';
+    payloadInput.value="";
+    payloadInput.setAttribute("placeholder", '{"__proto__": {"role": "admin"}}');
 });
 
 // ===================== INITIAL RENDER =====================
