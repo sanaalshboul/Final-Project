@@ -257,6 +257,7 @@ vulnBtn.addEventListener('click', () => {
         '<code>__proto__</code> and <code>constructor.prototype</code>. Attacker-controlled keys end up ' +
         'writing into <code>Object.prototype</code>, which every object inherits from.';
     resetOutput();
+    payloadInput.value= '{"__proto__": {"role": "admin"}}';
 });
 
 fixedBtn.addEventListener('click', () => {
@@ -270,6 +271,7 @@ fixedBtn.addEventListener('click', () => {
         '<code>prototype</code>) are skipped, <code>Object.keys()</code> / <code>Object.hasOwn()</code> only ' +
         'touch own properties, and the target is created with <code>Object.create(null)</code> so it has no prototype to pollute.';
     resetOutput();
+    payloadInput.value= '{"__proto__": {"role": "admin"}}';
 });
 
 // ===================== INITIAL RENDER =====================
