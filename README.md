@@ -52,7 +52,7 @@ This project was developed collaboratively by:
 | Team Member | Role | LinkedIn | GitHub |
 |---|---|---|---|
 | Tasneem Tanashat | Quality Assurance (QA) Engineer | [LinkedIn](https://www.linkedin.com/in/tasneem-tanashat/) | [GitHub](https://github.com/TasneemTanashat) |
-| Joman AlKhashashneh | Frontend Developer | [LinkedIn](LINK) | [GitHub](https://github.com/jomankh) |
+| Joman AlKhashashneh | Frontend Developer | [LinkedIn](https://www.linkedin.com/in/joman-kashashneh-a6a56725b/) | [GitHub](https://github.com/jomankh) |
 | Sana'a Al-shboul | (Client-Side Prototype Pollution Lab) Developer | [LinkedIn](https://www.linkedin.com/in/sana-a-al-shboul-14a043177/) | [GitHub](https://github.com/sanaalshboul) |
 | Lana Bataineh | (ReDoS Client-side Prototype Pollution) Developer | [LinkedIn](https://www.linkedin.com/in/lana-bataineh-0586b3446/) | [GitHub](https://github.com/Lana-Bataineh) |
 | Yaqeen Batayneh | (Open Redirect Client-side Prototype Pollution) Developer | [LinkedIn](https://www.linkedin.com/in/yaqeen-batayneh-952958259/) | [GitHub](https://github.com/yaqeenbatayneh04) |
