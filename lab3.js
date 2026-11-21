@@ -229,7 +229,7 @@ function runPayload(payloadName) {
     const p = PAYLOADS[payloadName];
     if (!p) return;
     payloadInput.value = p.json;
-    executePayload(p.json, p.gadget);
+    // executePayload(p.json, p.gadget);
 }
 
 // Custom textbox
