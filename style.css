@@ -925,3 +925,57 @@ html {
         white-space: normal;
     }
 }
+
+/* ================= Backtracking Visualizer ================= */
+.bt-controls {
+    margin-bottom: 0.8rem;
+}
+
+/* Same look as .output-box, but a tall box that scrolls */
+.bt-box {
+    min-height: 420px;
+    max-height: 520px;
+    overflow: auto;
+    direction: ltr;
+}
+
+.bt-note {
+    color: var(--accent-ice);
+    font-size: 0.9rem;
+    min-height: 1.5em;
+    margin-bottom: 0.6rem;
+}
+
+.bt-box svg {
+    display: block;
+}
+
+.bt-node rect {
+    fill: var(--card-bg);
+    stroke: var(--primary-teal);
+    stroke-width: 1.5;
+}
+
+.bt-node text {
+    fill: var(--text-light);
+    font-size: 11px;
+    font-family: monospace;
+}
+
+.bt-node.bt-fail rect { stroke: var(--danger-red); }
+.bt-node.bt-ok rect   { stroke: var(--safe-green); }
+.bt-node.bt-back rect { stroke: #d4a373; stroke-width: 3; }
+
+.bt-edge {
+    stroke: rgba(185, 228, 232, 0.35);
+    stroke-width: 1.5;
+}
+
+
+
+
+
+
+
+
+
