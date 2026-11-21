@@ -177,10 +177,10 @@ function handleEmailSubmit(event) {
       outputBox.innerHTML = ` <strong>SECURE :</strong> Valid email accepted safely.<br>Duration time : `+ duration;
       outputBox.className = "output-box attack-blocked";
     } else {
-	 if (attackType === "medium" || attackType == "heavy")
-            outputBox.innerHTML = ` <strong>BLOCKED :</strong> Possible ReDoS Attack blocked successfully.<br>Duration time : `+ duration;
+	 if (attackType === "medium" || attackType === "heavy")
+            outputBox.innerHTML = ` <strong>BLOCKED :</strong> Possible ReDoS Attack rejected.<br>Duration time : `+ duration;
          else
-            outputBox.innerHTML = ` <strong>BLOCKED :</strong> Invalid format blocked successfully.<br>Duration time : `+ duration;
+            outputBox.innerHTML = ` <strong>BLOCKED :</strong> Invalid format rejected.<br>Duration time : `+ duration;
 
 	outputBox.className = "output-box attack-blocked";
     }
