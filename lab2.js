@@ -61,13 +61,11 @@ if (isVulnerable == false) { <span class="highlight-line fixed-line" id="target-
  let attackType = getAttackType(userInput);
  if (isValid) {
       outputBox.innerHTML = \` <strong>SECURE :</strong> Valid email accepted safely.\`;
-      outputBox.className = "output-box attack-blocked";
  } else {
       if (attackType === "medium" || attackType == "heavy")
         outputBox.innerHTML = \` <strong>BLOCKED :</strong> Possible ReDoS Attack.\`;
    else
         outputBox.innerHTML = \` <strong>BLOCKED :</strong> Invalid format.\`;
-   outputBox.className = "output-box attack-blocked";
  }}}`;
 
     targetLine = document.getElementById("target-line");
