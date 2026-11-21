@@ -20,25 +20,16 @@ codeSection.innerHTML = `function handleEmailSubmit(emailInput) {
 if (isVulnerable) { <span class="highlight-line vuln-line" id="target-line">let regex = /^([a-zA-Z0-9]+)+@[a-zA-Z0-9]+\.[a-zA-Z]{2,}$/; </span> 
  let attackType = getAttackType(userInput);
  if (attackType === "heavy") {
-  outputBox.innerHTML = \`<strong>CRITICAL:</strong> Heavy ReDoS Attack detected!.\`;
-  outputBox.className = "output-box attack-success";   
-  requestAnimationFrame(() => {
-   setTimeout(() => {regex.test(userInput);},50);});
-  return;
+  outputBox.innerHTML = `CRITICAL: Heavy ReDoS Attack detected!.`;
+  regex.test(userInput);
  }else if (attackType === "medium") {
-       outputBox.innerHTML = \`<strong>WARNING:</strong> Medium ReDoS detected!\`;
-       outputBox.className = "output-box attack-success";
+       outputBox.innerHTML = `WARNING: Medium ReDoS detected!`;
        regex.test(userInput);
-       return;
  }
- let isValid = regex.test(userInput);
- if (isValid) {
-   outputBox.innerHTML = \`<strong>Valid Email:</strong> Normal email passed.\`;
-   outputBox.className = "output-box attack-blocked";
+ if (regex.test(userInput)) {
+   outputBox.innerHTML = `<strong>Valid Email:</strong> Normal email passed.`;
  }else {
-   outputBox.innerHTML = \`<strong>Invalid:</strong> Email format is incorrect.\`;
-   outputBox.className = "output-box";
- }}};`
+   outputBox.innerHTML = `<strong>Invalid:</strong> Email format is incorrect.`; }}}`;
 
   targetLine = document.getElementById("target-line");
 
