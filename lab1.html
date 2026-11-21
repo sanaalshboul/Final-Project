@@ -26,12 +26,12 @@
       <h1>DOM-Based Open Redirect</h1>
       <div class="lab-badges">
         <a class="badge lab-badge-link" href="https://owasp.org/Top10/A01_2021-Broken_Access_Control/" target="_blank" rel="noopener noreferrer">OWASP A01:2021 — Broken Access Control ↗</a>
-        <a class="badge lab-badge-link" href="https://cwe.mitre.org/data/definitions/601.html" target="_blank" rel="noopener noreferrer">CWE-601 ↗</a>
+        <a class="badge lab-badge-link" href="https://cwe.mitre.org/data/definitions/601.html" target="_blank" rel="noopener noreferrer">CWE-601 — URL Redirection to Untrusted Site ↗</a>
       </div>
     </header>
     <article class="article-content">
-      <section class="article-section"><h2>1. What is it?</h2><p>A DOM-based open redirect occurs when JavaScript reads an attacker-controlled URL parameter and uses it as a navigation destination without validation. A trusted-looking link can then send a visitor to an unrelated website.</p></section>
-      <section class="article-section"><h2>2. Why it matters?</h2><p>Attackers can disguise phishing destinations behind a familiar domain, increasing the chance that users trust the link. The weakness is classified as CWE-601: URL Redirection to Untrusted Site.</p></section>
+      <section class="article-section"><h2>1. What is it?</h2><p>DOM-Based Open Redirect is a client-side vulnerability that occurs when JavaScript uses an untrusted URL parameter to redirect users without proper validation. Attackers can exploit this behavior to send users from a trusted website to a malicious destination.</p></section>
+      <section class="article-section"><h2>2. Why it matters?</h2><p>Attackers can abuse trusted website links to redirect users to phishing pages, making malicious URLs appear legitimate. In 2014, a security issue known as Covert Redirect highlighted how unsafe redirect handling in OAuth authentication flows could expose users to phishing and unauthorized access risks.</p></section>
     </article>
     <section class="sandbox-area" aria-label="Interactive redirect sandbox">
       <div class="toggle-container" role="group" aria-label="Security mode">
@@ -49,7 +49,7 @@
           </div>
           <form class="redirect-form" id="redirect-form">
             <label for="redirect-input">Custom next parameter</label>
-            <input id="redirect-input" type="text" value="/dashboard" spellcheck="false" autocomplete="off" aria-describedby="redirect-hint" maxlength="1000">
+            <input id="redirect-input" type="text" placeholder="Enter /dashboard or an external URL" spellcheck="false" autocomplete="off" aria-describedby="redirect-hint" maxlength="1000">
             <p id="redirect-hint" class="safe-note">Examples: /dashboard or https://example.org/fake-login</p>
             <div class="lab1-actions"><button type="submit" class="payload-btn">▶ Test Redirect</button><button type="button" class="payload-btn" id="reset-btn">↺ Reset</button></div>
           </form>
@@ -59,22 +59,17 @@
             <div class="browser-content"><h3 id="browser-heading">Waiting for action</h3><p id="browser-message">No navigation will take place. This is a local preview.</p></div>
           </div>
           <h2>Simulation Result</h2><div id="simulation-output" class="output-box" role="status" aria-live="polite">Waiting for action...</div>
-          <h2 style="margin-top:1rem">Attack Trace</h2><ol id="attack-trace" class="trace-list" aria-live="polite"><li>Choose a payload to see the decision steps.</li></ol>
+          <h2 style="margin-top:1rem">Attack Trace</h2><ol id="attack-trace" class="trace-list" aria-live="polite"><li>Select a payload, then click Test Redirect to see the decision steps.</li></ol>
           <p class="safe-note">Safety: no external navigation, network requests, or real phishing pages are used.</p>
         </div>
       </div>
     </section>
     <section class="sources-section"><h3>Sources</h3><ul>
-      <li><a href="https://cwe.mitre.org/data/definitions/601.html" target="_blank" rel="noopener noreferrer">MITRE CWE-601 — URL Redirection to Untrusted Site</a></li>
+      <li><a href="https://oauth.net/advisories/2014-1-covert-redirect/" target="_blank" rel="noopener noreferrer">OAuth Security Advisory 2014.1 — Covert Redirect</a></li>
       <li><a href="https://portswigger.net/web-security/dom-based/open-redirection" target="_blank" rel="noopener noreferrer">PortSwigger — DOM-based open redirection</a></li>
-      <li><a href="https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html" target="_blank" rel="noopener noreferrer">OWASP — Unvalidated Redirects Cheat Sheet</a></li>
     </ul></section>
   </main>
-<!-- Footer -->
-    <footer class="footer">
-        <p class="footer-main"><strong>Vulno42</strong> &mdash; 42 Advanced Digital Skills Program (Cybersecurity Track)</p>
-        <p class="footer-sub">Crown Prince Foundation &amp; Abdulla Al Ghurair Foundation &bull; Powered by 42 Irbid &bull; November 2026</p>
-    </footer>
-      <script src="lab1.js"></script>
+  <footer class="footer"><p>Vulno42 — 42 Irbid Cybersecurity Bootcamp | Safe Simulation Environment</p></footer>
+  <script src="lab1.js"></script>
 </body>
 </html>
