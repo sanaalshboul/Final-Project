@@ -23,8 +23,8 @@
             <h1>Regular Expression Denial of Service (ReDoS)</h1>
             <div class="lab-badges">
                 <!-- TEAM: Write the OWASP Category and CWE -->
-                 <a href="https://wstg.owasp.org/latest/11-Injection/27-Regular_Expression_Denial_of_Service/" target="_blank" rel="noopener noreferrer" class="badge">OWASP WSTG - Injection </a>
-                <a href="https://cwe.mitre.org/data/definitions/1333.html" target="_blank" rel="noopener noreferrer" class="badge">CWE-1333 : Inefficient Regular Expression Complexity</a>
+                <a href="https://wstg.owasp.org/latest/11-Injection/27-Regular_Expression_Denial_of_Service/" target="_blank" rel="noopener noreferrer" class="badge lab-badge-link">OWASP WSTG — Injection ↗</a>
+                <a href="https://cwe.mitre.org/data/definitions/1333.html" target="_blank" rel="noopener noreferrer" class="badge lab-badge-link">CWE-1333 — Inefficient Regular Expression Complexity ↗</a>
             </div>
         </header>
 
@@ -56,20 +56,19 @@
                 <!-- Code Viewer (8-15 lines) -->
                 <div class="code-box">
 
-		<!-- (Test Page) -->
-                <div class="inner-test-page">
-                    <h3 class="test-page-title">Demo Page</h3>
-		    <br>
-                    <form id="emailTestForm" onsubmit="handleEmailSubmit(event)" class="test-form">
-                        <label for="emailInput">Enter your Email :</label>
-                        <div class="input-group">
-                            <input type="text" id="emailInput" required>
-                            <button type="submit" class="submit-btn">Submit</button>
-                        </div>
-                    </form>
-                </div>
+                    <!-- (Test Page) -->
+                    <div class="inner-test-page">
+                        <h3 class="test-page-title">Demo Page</h3>
+                        <form id="emailTestForm" onsubmit="handleEmailSubmit(event)" class="test-form">
+                            <label for="emailInput">Enter your Email:</label>
+                            <div class="input-group">
+                                <input type="text" id="emailInput" placeholder="e.g. testEmail@gmail.com" required>
+                                <button type="submit" class="submit-btn">Submit</button>
+                            </div>
+                        </form>
+                    </div>
 
-                                       <h2>The Code</h2>
+                    <h2>The Code</h2>
                     <pre><code id="code-display">function handleEmailSubmit(emailInput) {
 if (isVulnerable) { <span class="highlight-line vuln-line" id="target-line">let regex = /^([a-zA-Z0-9]+)+@[a-zA-Z0-9]+\.[a-zA-Z]{2,}$/; </span> 
  let attackType = getAttackType(userInput);
@@ -83,43 +82,42 @@ if (isVulnerable) { <span class="highlight-line vuln-line" id="target-line">let 
  if (regex.test(userInput)) {
    outputBox.innerHTML = `<strong>Valid Email:</strong> Normal email passed.`;
  }else {
-   outputBox.innerHTML = `<strong>Invalid:</strong> Email format is incorrect.`; }}}
-                    </code></pre>
+   outputBox.innerHTML = `<strong>Invalid:</strong> Email format is incorrect.`; }}}</code></pre>
                     <!-- TEAM: Explain why this specific line is bad (or how the fix works) -->
                     <p class="code-explanation" id="code-explanation">
-                        <strong>Why it Fails:</strong>The regular expression has nested repetition which causes catastrophic backtracking on long inputs ,freezing execution.
+                        <strong>Why it fails:</strong> The regular expression has nested repetition which causes catastrophic backtracking on long inputs, freezing execution.
                     </p>
                 </div>
 
                 <!-- Action Area (Payloads & Output) -->
                 <div class="action-box">
-                    <h2>Try it (Payloads)</h2>
-                    <p>Click a Button to test the attack :</p>
-		    <br>
+                    <h2>3. Try it (Payloads)</h2>
+                    <p class="section-intro">Click a button to load a payload, then click Submit:</p>
                     <div class="payload-buttons">
                         <!-- TEAM: Put 2-3 payload buttons here -->
-			<button class="payload-btn" onclick="runPayload('Payload1')">Normal Email</button>
+                        <button class="payload-btn" onclick="runPayload('Payload1')">Normal Email</button>
                         <button class="payload-btn" onclick="runPayload('Payload2')">Medium ReDoS Payload</button>
                         <button class="payload-btn" onclick="runPayload('Payload3')">Heavy ReDoS Payload</button>
                     </div>
-		    <br>
+
                     <h2>Simulation Result</h2>
                     <!-- This box shows what happens when the button is clicked -->
                     <div id="simulation-output" class="output-box">
                         Waiting for action...
                     </div>
 
-                    <!-- ===Backtracking Visualizer=== -->
-                    <br>
+                    <!-- === Backtracking Visualizer === -->
                     <!-- Backtracking Visualizer: type a short text, press Start, the tree is drawn step by step -->
-                    <h2>Backtracking Visualizer</h2>
-		    <p>Explore how a regex tries different paths and backtracks,demonstrates the pattern : ([a-zA-Z0-9]+)+</p>
-                    <div class="input-group bt-controls">
-                        <input type="text" id="btInput" value="aaaa!" maxlength="30" placeholder="e.g. aaaa!">
-                        <button type="button" id="btStart" class="submit-btn">Start</button>
-                    </div>
-                    <div id="bt-output" class="output-box bt-box">
-                        Enter text and press Start...
+                    <div class="bt-section">
+                        <h2>Backtracking Visualizer</h2>
+                        <p class="section-intro">Explore how a regex tries different paths and backtracks for the pattern: <code>([a-zA-Z0-9]+)+</code></p>
+                        <div class="input-group bt-controls">
+                            <input type="text" id="btInput" value="aaaa!" maxlength="30" placeholder="e.g. aaaa!">
+                            <button type="button" id="btStart" class="submit-btn">Start</button>
+                        </div>
+                        <div id="bt-output" class="output-box bt-box">
+                            Enter text and press Start...
+                        </div>
                     </div>
                     <!-- ========== END: Backtracking Visualizer ========== -->
                 </div>
@@ -130,8 +128,9 @@ if (isVulnerable) { <span class="highlight-line vuln-line" id="target-line">let 
         <div class="sources-section">
             <h3>Sources</h3>
             <ul>
-               <li><a href="https://community.owasp.org/attacks/Regular_expression_Denial_of_Service_-_ReDoS" target="_blank">OWASP ReDoS Documentation.</a></li>
-               <li><a href="https://blog.cloudflare.com/details-of-the-cloudflare-outage-on-july-2-2019/" target="_blank">Cloudflare Incident Report: How a Single ReDoS Regex Stopped Global Servers (July 2019)</a></li>            </ul>
+                <li><a href="https://community.owasp.org/attacks/Regular_expression_Denial_of_Service_-_ReDoS" target="_blank" rel="noopener noreferrer">OWASP ReDoS Documentation</a></li>
+                <li><a href="https://blog.cloudflare.com/details-of-the-cloudflare-outage-on-july-2-2019/" target="_blank" rel="noopener noreferrer">Cloudflare Incident Report: How a Single ReDoS Regex Stopped Global Servers (July 2019)</a></li>
+            </ul>
         </div>
 
     </main>

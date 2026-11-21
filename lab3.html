@@ -5,25 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lab 3: Client-Side Prototype Pollution - Vulno42</title>
     <link rel="stylesheet" href="style.css">
-    <style>
-        .custom-payload { margin: 1rem 0; }
-        .custom-payload textarea {
-            width: 100%;
-            box-sizing: border-box;
-            min-height: 90px;
-            padding: 0.75rem;
-            margin-bottom: 0.6rem;
-            background: #020c12;
-            color: #d6f1f5;
-            border: 1px solid #1a7f8c;
-            border-radius: 8px;
-            font-family: monospace;
-            font-size: 0.9rem;
-            resize: vertical;
-        }
-        .custom-payload textarea:focus { outline: none; border-color: #2fd0e0; }
-        .custom-payload .hint { font-size: 0.85rem; opacity: 0.75; margin: 0 0 0.5rem; }
-    </style>
 </head>
 <body>
 
@@ -80,7 +61,7 @@
                 <!-- Action Area (Payloads & Output) -->
                 <div class="action-box">
                     <h2>3. Try it (Payloads)</h2>
-                    <p>Click a button to test the attack:</p>
+                    <p class="section-intro">Click a button to test the attack:</p>
                     <div class="payload-buttons">
                         <button class="payload-btn" onclick="runPayload('Payload 1')">__proto__ (privilege escalation)</button>
                         <button class="payload-btn" onclick="runPayload('Payload 2')">Constructor.prototype (DOM XSS)</button>
@@ -106,19 +87,20 @@
             <h3>Sources</h3>
             <ul>
                 <!-- TEAM: Put your links here -->
-                <li><a href="https://portswigger.net/web-security/prototype-pollution/client-side#finding-client-side-prototype-pollution-sources-manually" target="_blank">Client-side prototype pollution vulnerabilities</a></li>
-                <li><a href="https://portswigger.net/web-security/prototype-pollution/client-side/lab-prototype-pollution-dom-xss-via-client-side-prototype-pollution" target="_blank">DOM XSS via client-side prototype pollution</a></li>
+                <li><a href="https://portswigger.net/web-security/prototype-pollution/client-side#finding-client-side-prototype-pollution-sources-manually" target="_blank" rel="noopener noreferrer">Client-side prototype pollution vulnerabilities</a></li>
+                <li><a href="https://portswigger.net/web-security/prototype-pollution/client-side/lab-prototype-pollution-dom-xss-via-client-side-prototype-pollution" target="_blank" rel="noopener noreferrer">DOM XSS via client-side prototype pollution</a></li>
             </ul>
         </div>
 
     </main>
-<!-- Footer -->
+
+    <!-- Footer -->
     <footer class="footer">
         <p class="footer-main"><strong>Vulno42</strong> &mdash; 42 Advanced Digital Skills Program (Cybersecurity Track)</p>
         <p class="footer-sub">Crown Prince Foundation &amp; Abdulla Al Ghurair Foundation &bull; Powered by 42 Irbid &bull; November 2026</p>
     </footer>
 
-    <!-- Fixed: script name now matches the uploaded file (lab.js) -->
+    <!-- Fixed: script name now matches the uploaded file (lab3.js) -->
     <script src="lab3.js"></script>
 </body>
 </html>
