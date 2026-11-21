@@ -74,14 +74,13 @@
 if (isVulnerable) { <span class="highlight-line vuln-line" id="target-line">let regex = /^([a-zA-Z0-9]+)+@[a-zA-Z0-9]+\.[a-zA-Z]{2,}$/; </span> 
  let attackType = getAttackType(userInput);
  if (attackType === "heavy") {
-  outputBox.innerHTML = `<strong>CRITICAL:</strong> Heavy ReDoS Attack detected!.`;
-  requestAnimationFrame(() => {setTimeout(() => {regex.test(userInput);},50);});
+  result.innerHTML = `CRITICAL: Heavy ReDoS Attack detected!.`;
+  regex.test(userInput);
  }else if (attackType === "medium") {
-       outputBox.innerHTML = `<strong>WARNING:</strong> Medium ReDoS detected!`;
+       outputBox.innerHTML = `WARNING: Medium ReDoS detected!`;
        regex.test(userInput);
  }
- let isValid = regex.test(userInput);
- if (isValid) {
+ if (regex.test(userInput)) {
    outputBox.innerHTML = `<strong>Valid Email:</strong> Normal email passed.`;
  }else {
    outputBox.innerHTML = `<strong>Invalid:</strong> Email format is incorrect.`; }}}
