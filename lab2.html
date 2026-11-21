@@ -23,7 +23,7 @@
             <h1>Regular Expression Denial of Service (ReDoS)</h1>
             <div class="lab-badges">
                 <!-- TEAM: Write the OWASP Category and CWE -->
-                 <a href="https://wstg.owasp.org/latest/4-Web_Application_Security_Testing/07-Injection/28-Regular_Expression_Denial_of_Service/?hl=en-US" target="_blank" rel="noopener noreferrer" class="badge">OWASP WSTG - Injection </a>
+                 <a href="https://wstg.owasp.org/latest/11-Injection/27-Regular_Expression_Denial_of_Service/" target="_blank" rel="noopener noreferrer" class="badge">OWASP WSTG - Injection </a>
                 <a href="https://cwe.mitre.org/data/definitions/1333.html" target="_blank" rel="noopener noreferrer" class="badge">CWE-1333 : Inefficient Regular Expression Complexity</a>
             </div>
         </header>
@@ -117,6 +117,20 @@ if (isVulnerable) { <span class="highlight-line vuln-line" id="target-line">let 
                     <div id="simulation-output" class="output-box">
                         Waiting for action...
                     </div>
+
+                    <!-- ===Backtracking Visualizer=== -->
+                    <br>
+                    <!-- Backtracking Visualizer: type a short text, press Start, the tree is drawn step by step -->
+                    <h2>Backtracking Visualizer</h2>
+		    <p>Explore how a regex tries different paths and backtracks,demonstrates the pattern : ([a-zA-Z0-9]+)+</p>
+                    <div class="input-group bt-controls">
+                        <input type="text" id="btInput" value="aaaa!" maxlength="30" placeholder="e.g. aaaa!">
+                        <button type="button" id="btStart" class="submit-btn">Start</button>
+                    </div>
+                    <div id="bt-output" class="output-box bt-box">
+                        Enter text and press Start...
+                    </div>
+                    <!-- ========== END: Backtracking Visualizer ========== -->
                 </div>
             </div>
         </div>
